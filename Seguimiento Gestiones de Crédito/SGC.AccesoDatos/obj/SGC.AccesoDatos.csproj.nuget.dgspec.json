@@ -11,7 +11,7 @@
         "projectName": "SGC.AccesoDatos",
         "projectPath": "C:\\Users\\nella\\source\\repos\\SC-701-Proyecto\\Seguimiento Gestiones de Crédito\\SGC.AccesoDatos\\SGC.AccesoDatos.csproj",
         "packagesPath": "C:\\Users\\nella\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nella\\source\\repos\\SC-701-Proyecto\\Seguimiento Gestiones de Crédito\\SGC.AccesoDatos\\obj\\",
+        "outputPath": "C:\\Users\\nella\\Source\\Repos\\SC-701-Proyecto\\Seguimiento Gestiones de Crédito\\SGC.AccesoDatos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

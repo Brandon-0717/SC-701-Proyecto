@@ -1,8 +1,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SGC.LogicaDeNegocio.Mapper;
 using SGC.UI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
+
+
+//INYECCIONES DE DEPENDENCIAS
+
+
+
+
+
+//---------------------------
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

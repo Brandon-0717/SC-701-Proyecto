@@ -9,7 +9,8 @@
   <ItemGroup>
     <Folder Include="AccesoDatos\" />
     <Folder Include="LogicaDeNegocio\" />
-    <Folder Include="Modelos\" />
+    <Folder Include="Modelos\ModelosDTO\" />
+    <Folder Include="Modelos\ModeloDA\" />
   </ItemGroup>
 
 </Project>
