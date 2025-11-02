@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using SGC.LogicaDeNegocio.Mapper;
-using SGC.AccesoDatos;
 using SGC.Abstracciones.Modelos.ModeloDA;
+using SGC.AccesoDatos;
+using SGC.LogicaDeNegocio;
+using SGC.LogicaDeNegocio.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,9 @@ builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
 
 
 //---------------------------
+
+builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
+
 
 // Add services to the container. /**DB CONTEXT**/
 

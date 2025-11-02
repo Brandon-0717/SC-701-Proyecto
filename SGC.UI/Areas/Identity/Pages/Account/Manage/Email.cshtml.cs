@@ -160,12 +160,26 @@ namespace SGC.UI.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            var htmlMessage = $@"
+            <div style='font-family:Segoe UI, sans-serif; padding:20px; background-color:#f4f6f8; border-radius:8px;'>
+                <h2 style='color:#2c3e50;'>Bienvenido a SGC - Sistema de Créditos</h2>
+                <p>Hola,</p>
+                <p>Gracias por registrarte. Para activar tu cuenta, por favor confirma tu correo electrónico haciendo clic en el siguiente botón:</p>
+                <p style='margin:20px 0;'>
+                    <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' 
+                       style='display:inline-block; padding:12px 24px; background-color:#28a745; color:#fff; text-decoration:none; border-radius:5px;'>
+                       Confirmar cuenta
+                    </a>
+                </p>
+                <p>Si no realizaste esta acción, puedes ignorar este mensaje.</p>
+                <hr />
+                <p style='font-size:12px; color:#888;'>Este correo fue generado automáticamente. No respondas a este mensaje.</p>
+            </div>";
+
+            await _emailSender.SendEmailAsync(email,"Confirma tu cuenta en SGC",htmlMessage);
+
+            StatusMessage = "Verificación enviada. Revisa tu correo electrónico.";
             return RedirectToPage();
         }
     }
