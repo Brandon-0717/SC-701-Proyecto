@@ -16,8 +16,12 @@ builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
 
 #region INYECCION DEPENDENCIAS
 //Roles
-builder.Services.AddTransient<IListarRolesAD, ListarRolesAD>();
+builder.Services.AddTransient<IListarRolesDA, ListarRolesDA>();
 builder.Services.AddTransient<IListarRolesLN, ListarRolesLN>();
+builder.Services.AddTransient<IObtenerRolPorNombreDA, ObtenerRolPorNombreDA>();
+builder.Services.AddTransient<IObtenerRolPorNombreLN, ObtenerRolPorNombreLN>();
+builder.Services.AddTransient<ICrearRolDA, CrearRolDA>();
+builder.Services.AddTransient<ICrearRolLN, CrearRolLN>();
 
 //Usuarios
 

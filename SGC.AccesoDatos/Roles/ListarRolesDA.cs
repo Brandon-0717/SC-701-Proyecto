@@ -5,11 +5,11 @@ using SGC.Abstracciones.Modelos.ModeloDA;
 
 namespace SGC.AccesoDatos.Roles
 {
-    public class ListarRolesAD : IListarRolesAD
+    public class ListarRolesDA : IListarRolesDA
     {
         private readonly Contexto _context;
 
-        public ListarRolesAD(Contexto context)
+        public ListarRolesDA(Contexto context)
         {
             _context = context;
         }

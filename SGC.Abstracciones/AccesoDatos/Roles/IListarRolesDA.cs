@@ -2,7 +2,7 @@
 
 namespace SGC.Abstracciones.AccesoDatos.Roles
 {
-    public interface IListarRolesAD
+    public interface IListarRolesDA
     {
         Task<List<RolDA>> Listar();
     }

@@ -9,12 +9,12 @@ namespace SGC.LogicaDeNegocio.Roles
 {
     public class ListarRolesLN : IListarRolesLN
     {
-        private readonly IListarRolesAD _listarRolesAD;
+        private readonly IListarRolesDA _listarRolesDA;
         private readonly IMapper _mapper;
 
-        public ListarRolesLN(IListarRolesAD listarRolesAD, IMapper mapper)
+        public ListarRolesLN(IListarRolesDA listarRolesDA, IMapper mapper)
         {
-            _listarRolesAD = listarRolesAD;
+            _listarRolesDA = listarRolesDA;
             _mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace SGC.LogicaDeNegocio.Roles
         {
             var response = new CustomResponse<List<RolDTO>>();
 
-            var listaRolesDA = await _listarRolesAD.Listar();
+            var listaRolesDA = await _listarRolesDA.Listar();
 
             if (listaRolesDA.Count == 0)
             {
