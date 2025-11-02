@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.21" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SGC.Abstracciones\SGC.Abstracciones.csproj" />
+  </ItemGroup>
+
 </Project>
