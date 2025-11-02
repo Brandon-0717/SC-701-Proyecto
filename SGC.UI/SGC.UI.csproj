@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SGC.Abstracciones\SGC.Abstracciones.csproj" />
     <ProjectReference Include="..\SGC.AccesoDatos\SGC.AccesoDatos.csproj" />
     <ProjectReference Include="..\SGC.LogicaDeNegocio\SGC.LogicaDeNegocio.csproj" />
   </ItemGroup>
