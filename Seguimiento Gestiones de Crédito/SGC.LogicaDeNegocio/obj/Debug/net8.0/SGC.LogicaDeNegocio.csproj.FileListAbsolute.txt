@@ -10,3 +10,4 @@ C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SG
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.LogicaDeNegocio\obj\Debug\net8.0\refint\SGC.LogicaDeNegocio.dll
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.LogicaDeNegocio\obj\Debug\net8.0\SGC.LogicaDeNegocio.pdb
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.LogicaDeNegocio\obj\Debug\net8.0\ref\SGC.LogicaDeNegocio.dll
+C:\Users\nella\source\repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.LogicaDeNegocio\obj\Debug\net8.0\SGC.LogicaDeNegocio.sourcelink.json

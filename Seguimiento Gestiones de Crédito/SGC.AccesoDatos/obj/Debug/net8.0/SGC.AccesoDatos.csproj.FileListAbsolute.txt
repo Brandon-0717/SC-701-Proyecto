@@ -9,3 +9,5 @@ C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SG
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.AccesoDatos\obj\Debug\net8.0\refint\SGC.AccesoDatos.dll
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.AccesoDatos\obj\Debug\net8.0\SGC.AccesoDatos.pdb
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.AccesoDatos\obj\Debug\net8.0\ref\SGC.AccesoDatos.dll
+C:\Users\nella\source\repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.AccesoDatos\obj\Debug\net8.0\SGC.AccesoDatos.csproj.AssemblyReference.cache
+C:\Users\nella\source\repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.AccesoDatos\obj\Debug\net8.0\SGC.AccesoDatos.sourcelink.json

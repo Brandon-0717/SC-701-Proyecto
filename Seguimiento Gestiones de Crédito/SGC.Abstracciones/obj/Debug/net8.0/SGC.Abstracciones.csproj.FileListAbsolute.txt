@@ -9,3 +9,4 @@ C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SG
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.Abstracciones\obj\Debug\net8.0\refint\SGC.Abstracciones.dll
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.Abstracciones\obj\Debug\net8.0\SGC.Abstracciones.pdb
 C:\Users\nella\Source\Repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.Abstracciones\obj\Debug\net8.0\ref\SGC.Abstracciones.dll
+C:\Users\nella\source\repos\SC-701-Proyecto\Seguimiento Gestiones de Crédito\SGC.Abstracciones\obj\Debug\net8.0\SGC.Abstracciones.sourcelink.json
