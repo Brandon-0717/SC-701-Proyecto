@@ -11,13 +11,13 @@
 
 1. **Clona el repositorio**
    
-| https://github.com/AlexanderTL0343/TareasProgaAvanzadaWeb.git |
+| https://github.com/Brandon-0717/SC-701-Proyecto.git |
 
 # 🧩 Especificación Básica del Proyecto — ControlClientes
 
 ## 🏗️ a. Arquitectura del Proyecto
 
-El sistema **ControlClientes** está desarrollado bajo una arquitectura en **capas**, que promueve la separación de responsabilidades y facilita la escalabilidad y el mantenimiento del código.
+El sistema **Del Proyecto** está desarrollado bajo una arquitectura en **capas**, que promueve la separación de responsabilidades y facilita la escalabilidad y el mantenimiento del código.
 
 **Estructura principal del proyecto:**
 - **ControlClientes.Presentacion (MVC)**  
