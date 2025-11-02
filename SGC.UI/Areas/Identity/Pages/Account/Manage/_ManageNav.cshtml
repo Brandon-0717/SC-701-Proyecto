@@ -1,4 +1,4 @@
-﻿@using SGC.Abstracciones.Modelos.ModeloDA;
+﻿@using SGC.Abstracciones.Modelos.ModeloDA
 @inject SignInManager<UsuarioDA> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
