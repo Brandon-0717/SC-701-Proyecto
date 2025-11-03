@@ -76,6 +76,22 @@ namespace SGC.UI.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ActualizarCliente([FromBody] ClienteDto cliente)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _actualizarClienteAsyncLN.ActualizarClienteAsync(cliente);
+
+            if (response.EsError)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+
     }
 }
 

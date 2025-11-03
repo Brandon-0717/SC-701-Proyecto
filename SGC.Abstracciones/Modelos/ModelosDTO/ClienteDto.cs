@@ -52,15 +52,14 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         [MaxLength(128, ErrorMessage = "El campo Dirección Exacta no puede tener más de 128 caracteres.")]
         public string Direccion_Exacta { get; set; }
 
-        [Required(ErrorMessage = "El campo Fecha de Creación es requerido.")]
-        public DateTime Fecha_Creacion { get; set; }
+        public DateTime ? Fecha_Creacion { get; set; }
 
         [MaxLength(128, ErrorMessage = "El campo Creado Por no puede tener más de 128 caracteres.")]
-        public string CreadoPor { get; set; }
+        public string ? CreadoPor { get; set; }
 
         [MaxLength(128, ErrorMessage = "El campo Modificado Por no puede tener más de 128 caracteres.")]
         public string ? ModificadoPor { get; set; }
 
-        public DateTime? Fecha_Modificacion { get; set; }
+        public DateTime ? Fecha_Modificacion { get; set; }
     }
 }
