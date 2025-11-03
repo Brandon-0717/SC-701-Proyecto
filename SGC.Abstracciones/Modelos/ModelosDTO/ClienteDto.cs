@@ -63,3 +63,4 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         public DateTime ? Fecha_Modificacion { get; set; }
     }
 }
+//

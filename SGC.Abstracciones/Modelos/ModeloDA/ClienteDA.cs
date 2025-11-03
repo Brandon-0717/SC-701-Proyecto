@@ -71,3 +71,4 @@ namespace SGC.AccesoDatos.Modelos
         public DateTime? Fecha_Modificacion { get; set; }
     }
 }
+//
