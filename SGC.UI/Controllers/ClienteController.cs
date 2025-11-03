@@ -103,7 +103,7 @@ namespace SGC.UI.Controllers
                 return BadRequest(response);
 
             return Ok(response);
-        }abstract 
+        }
 
     }
 }
