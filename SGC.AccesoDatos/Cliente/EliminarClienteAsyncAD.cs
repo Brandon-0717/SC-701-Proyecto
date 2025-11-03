@@ -1,4 +1,5 @@
-﻿using SGC.Abstracciones.AccesoDatos.Cliente;
+﻿using Microsoft.EntityFrameworkCore;
+using SGC.Abstracciones.AccesoDatos.Cliente;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,25 @@ namespace SGC.AccesoDatos.Cliente
             _contexto = contexto;
         }
 
-        public Task<bool> EliminarClienteAsync(Guid clienteId)
+        public async Task<bool> EliminarClienteAsync(Guid clienteId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cliente = await _contexto.Clientes.FirstOrDefaultAsync(c => c.CLIENTES_PK == clienteId);
+
+                if (cliente == null)
+                    return false;
+
+                _contexto.Clientes.Remove(cliente);
+                await _contexto.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Registrar error si se quiere
+                throw new Exception($"Error al eliminar el cliente: {ex.Message}", ex);
+            }
         }
     }
 }

@@ -91,6 +91,19 @@ namespace SGC.UI.Controllers
 
             return Ok(response);
         }
+        [HttpPost]
+        public async Task<IActionResult> EliminarCliente([FromBody] string clienteId)
+        {
+            if (string.IsNullOrWhiteSpace(clienteId))
+                return BadRequest("El clienteId es requerido.");
+
+            var response = await _eliminarClienteAsyncLN.EliminarClienteAsync(clienteId);
+
+            if (response.EsError)
+                return BadRequest(response);
+
+            return Ok(response);
+        }abstract 
 
     }
 }
