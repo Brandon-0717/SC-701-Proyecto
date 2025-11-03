@@ -11,28 +11,28 @@
 
 1. **Clona el repositorio**
    
-| https://github.com/AlexanderTL0343/TareasProgaAvanzadaWeb.git |
+| https://github.com/Brandon-0717/SC-701-Proyecto.git |
 
-# 🧩 Especificación Básica del Proyecto — ControlClientes
+# 🧩 Especificación Básica del Proyecto — SGC
 
 ## 🏗️ a. Arquitectura del Proyecto
 
-El sistema **ControlClientes** está desarrollado bajo una arquitectura en **capas**, que promueve la separación de responsabilidades y facilita la escalabilidad y el mantenimiento del código.
+El sistema **SGC** está desarrollado bajo una arquitectura en **capas**, que promueve la separación de responsabilidades y facilita la escalabilidad y el mantenimiento del código.
 
 **Estructura principal del proyecto:**
-- **ControlClientes.Presentacion (MVC)**  
+- **SGC.Presentacion (MVC)**  
   - Proyecto principal en **ASP.NET Core MVC** encargado de las vistas, controladores y manejo de rutas.
   - Contiene las vistas Razor y archivos estáticos (CSS, JS, etc.).
   
-- **ControlClientes.LogicaNegocio (LN)**  
+- **SGC.LogicaNegocio (LN)**  
   - Implementa las reglas de negocio y la validación de datos antes de acceder a la capa de datos.  
   - Interactúa con la capa de datos a través de interfaces y modelos DTO.
 
-- **ControlClientes.AccesoDatos (DA)**  
+- **SGC.AccesoDatos (DA)**  
   - Se encarga de la gestión de datos, simulando o conectándose a una base de datos.  
   - Contiene las operaciones CRUD básicas (crear, leer, actualizar, eliminar).
 
-- **ControlClientes.Abstracciones (DTO / Interfaces)**  
+- **SGC.Abstracciones (DTO / Interfaces)**  
   - Define las interfaces, modelos de transferencia de datos (DTO) y contratos de las capas.  
   - Facilita el acoplamiento débil entre las capas.
 
@@ -48,6 +48,7 @@ El sistema **ControlClientes** está desarrollado bajo una arquitectura en **cap
 | **Swashbuckle.AspNetCore** | Generación automática de documentación Swagger para APIs (si aplica). |
 | **Microsoft.Extensions.DependencyInjection** | Inyección de dependencias para la arquitectura en capas. |
 | **Newtonsoft.Json** | Serialización y deserialización de objetos JSON. |
+|**System.ComponentModel.DataAnnotations**|Permite el uso de validaciones mediante anotaciones como [Required], [MaxLength], [EmailAddress], etc., en los modelos y DTOs.|
 
 ---
 

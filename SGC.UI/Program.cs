@@ -1,18 +1,58 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using SGC.LogicaDeNegocio.Mapper;
-using SGC.AccesoDatos;
+using SGC.Abstracciones.AccesoDatos.Cliente;
+using SGC.Abstracciones.AccesoDatos.Roles;
+using SGC.Abstracciones.LogicaDeNegocio.Cliente;
+using SGC.Abstracciones.LogicaDeNegocio.Roles;
 using SGC.Abstracciones.Modelos.ModeloDA;
+using SGC.AccesoDatos;
+using SGC.AccesoDatos.Cliente;
+using SGC.AccesoDatos.Roles;
+using SGC.LogicaDeNegocio;
+using SGC.LogicaDeNegocio.Cliente;
+using SGC.LogicaDeNegocio.Mapper;
+using SGC.LogicaDeNegocio.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
 
-//INYECCIONES DE DEPENDENCIAS
+#region INYECCION DEPENDENCIAS
+//Roles
+builder.Services.AddTransient<IListarRolesDA, ListarRolesDA>();
+builder.Services.AddTransient<IListarRolesLN, ListarRolesLN>();
+builder.Services.AddTransient<IObtenerRolPorNombreDA, ObtenerRolPorNombreDA>();
+builder.Services.AddTransient<IObtenerRolPorNombreLN, ObtenerRolPorNombreLN>();
+builder.Services.AddTransient<ICrearRolDA, CrearRolDA>();
+builder.Services.AddTransient<ICrearRolLN, CrearRolLN>();
+
+//Usuarios
+
+//Cliente
+builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
+builder.Services.AddTransient<IActualizarClienteAsyncLN, ActualizarClienteAsyncLN>();
+
+builder.Services.AddTransient<ICrearClienteAsyncAD, CrearClienteAsyncAD>();
+builder.Services.AddTransient<ICrearClienteAsyncLN, CrearClienteAsyncLN>();
+
+builder.Services.AddTransient<IEliminarClienteAsyncAD, EliminarClienteAsyncAD>();
+builder.Services.AddTransient<IEliminarClienteAsyncLN, EliminarClienteAsyncLN>();
+
+builder.Services.AddTransient<IObtenerClienteAsyncAD, ObtenerClienteAsyncAD>();
+builder.Services.AddTransient<IObtenerClienteAsyncLN, ObtenerClienteAsyncLN>();
+
+
+builder.Services.AddTransient<IObtenerClientePorIdAsyncAD, ObtenerClientePorIdAsyncAD>();
+builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAsyncLN>();
 
 
 
-//---------------------------
+#endregion
+
+builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
+
+
 
 // Add services to the container. /**DB CONTEXT**/
 
@@ -20,13 +60,10 @@ var connectionString = builder.Configuration.GetConnectionString("ContextoConnec
 builder.Services.AddDbContext<Contexto>(options =>
     options.UseSqlServer(connectionString));
 
-//builder.Services.AddDefaultIdentity<UsuarioDA>(options => options.SignIn.RequireConfirmedAccount = false)
-//   .AddEntityFrameworkStores<Contexto>();
-
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddIdentity<UsuarioDA, IdentityRole>(options =>
+builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
@@ -34,6 +71,7 @@ builder.Services.AddIdentity<UsuarioDA, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 //-------------------------------------
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,5 +97,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+
 
 app.Run();
