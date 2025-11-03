@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SGC.Abstracciones.LogicaDeNegocio.Cliente;
+using SGC.Abstracciones.Modelos.ModelosDTO;
 
 namespace SGC.UI.Controllers
 {
@@ -53,10 +54,28 @@ namespace SGC.UI.Controllers
             return Ok(response);
         }
 
-        public IActionResult Test()
+        //public IActionResult Test()
+        //{
+        //    return Content("✅ ClienteController cargado correctamente");
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> CrearCliente([FromBody] 
+        ClienteDto cliente)
         {
-            return Content("✅ ClienteController cargado correctamente");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _crearClienteAsyncLN.CrearClienteAsync(cliente);
+
+            if (response.EsError)
+                return BadRequest(response);
+
+            return Ok(response);
         }
+
     }
 }
 

@@ -59,7 +59,7 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         public string CreadoPor { get; set; }
 
         [MaxLength(128, ErrorMessage = "El campo Modificado Por no puede tener más de 128 caracteres.")]
-        public string ModificadoPor { get; set; }
+        public string ? ModificadoPor { get; set; }
 
         public DateTime? Fecha_Modificacion { get; set; }
     }

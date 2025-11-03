@@ -17,9 +17,29 @@ namespace SGC.AccesoDatos.Cliente
             _contexto = contexto;
         }
 
-        public Task<bool> CrearClienteAsync(ClienteDA cliente)
+        public async Task<bool> CrearClienteAsync(ClienteDA cliente)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Si el cliente no tiene un GUID, lo generamos
+                if (!cliente.CLIENTES_PK.HasValue || cliente.CLIENTES_PK == Guid.Empty)
+                    cliente.CLIENTES_PK = Guid.NewGuid();
+
+                // Fecha de creación automática
+                cliente.Fecha_Creacion = DateTime.Now;
+
+                // Se agrega a la tabla CLIENTES
+                await _contexto.Clientes.AddAsync(cliente);
+
+                // Guardamos los cambios
+                await _contexto.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al crear el cliente en la base de datos: {ex.Message} -- {ex.InnerException?.Message}", ex);
+            }
         }
     }
 }
