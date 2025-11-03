@@ -48,6 +48,7 @@ El sistema **SGC** está desarrollado bajo una arquitectura en **capas**, que pr
 | **Swashbuckle.AspNetCore** | Generación automática de documentación Swagger para APIs (si aplica). |
 | **Microsoft.Extensions.DependencyInjection** | Inyección de dependencias para la arquitectura en capas. |
 | **Newtonsoft.Json** | Serialización y deserialización de objetos JSON. |
+|**System.ComponentModel.DataAnnotations**|Permite el uso de validaciones mediante anotaciones como [Required], [MaxLength], [EmailAddress], etc., en los modelos y DTOs.|
 
 ---
 
