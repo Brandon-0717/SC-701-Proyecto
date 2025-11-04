@@ -9,22 +9,22 @@ namespace SGC.LogicaDeNegocio.Roles
     public class EliminarRolLN : IEliminarRolLN
     {
         private readonly IEliminarRolDA _eliminarRolDA;
-        private readonly IObtenerRolPorIdLN _obtenerRolPorIdLN;
-        public EliminarRolLN(IEliminarRolDA eliminarRolDA, IObtenerRolPorIdLN obtenerRolPorIdLN)
+        private readonly IValidarExistenciaRolPorIdLN _validarExistenciaRolPorIdLN;
+        public EliminarRolLN(IEliminarRolDA eliminarRolDA, IValidarExistenciaRolPorIdLN validarExistenciaRolPorIdLN)
         {
             _eliminarRolDA = eliminarRolDA;
-            _obtenerRolPorIdLN = obtenerRolPorIdLN;
+            _validarExistenciaRolPorIdLN = validarExistenciaRolPorIdLN;
         }
         public async Task<CustomResponse<RolDTO>> Eliminar(string idRol)
         {
             var response = new CustomResponse<RolDTO>();
 
-            var rol = await _obtenerRolPorIdLN.Obtener(idRol); //Rol es una CustomResponse
+            var existe = await _validarExistenciaRolPorIdLN.Validar(idRol);
 
-            if (rol == null)
+            if (existe.EsError)
             {
                 response.EsError = true;
-                response.Mensaje = rol.Mensaje;
+                response.Mensaje = existe.Mensaje;
                 return response;
             }
 

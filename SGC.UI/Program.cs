@@ -30,6 +30,11 @@ builder.Services.AddTransient<IEliminarRolDA, EliminarRolDA>();
 builder.Services.AddTransient<IEliminarRolLN, EliminarRolLN>();
 builder.Services.AddTransient<IObtenerRolPorIdDA, ObtenerRolPorIdDA>();
 builder.Services.AddTransient<IObtenerRolPorIdLN, ObtenerRolPorIdLN>();
+builder.Services.AddTransient<IModificarRolDA, ModificarRolDA>();
+builder.Services.AddTransient<IModificarRolLN, ModificarRolLN>();
+builder.Services.AddTransient<IvalidarExistenciaRolPorIdDA, ValidarExistenciaRolPorIdDA>();
+builder.Services.AddTransient<IValidarExistenciaRolPorIdLN, ValidarExistenciaRolPorIdLN>();
+
 
 //Usuarios
 

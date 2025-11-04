@@ -11,13 +11,15 @@ namespace SGC.UI.Controllers
         private readonly IObtenerRolPorNombreLN _obtenerRolPorNombreLN;
         private readonly IObtenerRolPorIdLN _obtenerRolPorIdLN;
         private readonly IEliminarRolLN _eliminarRolLN;
+        private readonly IModificarRolLN _modificarRolLN;
 
         public RolController(
-            IListarRolesLN listarRolesLN, 
-            ICrearRolLN crearRolLN, 
+            IListarRolesLN listarRolesLN,
+            ICrearRolLN crearRolLN,
             IObtenerRolPorNombreLN obtenerRolPorNombreLN,
             IObtenerRolPorIdLN obtenerRolPorIdLN,
-            IEliminarRolLN eliminarRolLN
+            IEliminarRolLN eliminarRolLN,
+            IModificarRolLN modificarRolLN
             )
         {
             _listarRolesLN = listarRolesLN;
@@ -25,6 +27,7 @@ namespace SGC.UI.Controllers
             _obtenerRolPorNombreLN = obtenerRolPorNombreLN;
             _obtenerRolPorIdLN = obtenerRolPorIdLN;
             _eliminarRolLN = eliminarRolLN;
+            _modificarRolLN = modificarRolLN;
         }
 
         //----------------------------------------------------
@@ -66,6 +69,13 @@ namespace SGC.UI.Controllers
         public async Task<IActionResult> EliminarRol(string IdRol)
         {
             var response = await _eliminarRolLN.Eliminar(IdRol);
+            return Json(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ModificarRol(RolDTO Rol)
+        {
+            var response = await _modificarRolLN.Modificar(Rol);
             return Json(response);
         }
     }
