@@ -26,23 +26,22 @@ builder.Services.AddTransient<IObtenerRolPorNombreDA, ObtenerRolPorNombreDA>();
 builder.Services.AddTransient<IObtenerRolPorNombreLN, ObtenerRolPorNombreLN>();
 builder.Services.AddTransient<ICrearRolDA, CrearRolDA>();
 builder.Services.AddTransient<ICrearRolLN, CrearRolLN>();
+builder.Services.AddTransient<IEliminarRolDA, EliminarRolDA>();
+builder.Services.AddTransient<IEliminarRolLN, EliminarRolLN>();
+builder.Services.AddTransient<IObtenerRolPorIdDA, ObtenerRolPorIdDA>();
+builder.Services.AddTransient<IObtenerRolPorIdLN, ObtenerRolPorIdLN>();
 
 //Usuarios
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
 builder.Services.AddTransient<IActualizarClienteAsyncLN, ActualizarClienteAsyncLN>();
-
 builder.Services.AddTransient<ICrearClienteAsyncAD, CrearClienteAsyncAD>();
 builder.Services.AddTransient<ICrearClienteAsyncLN, CrearClienteAsyncLN>();
-
 builder.Services.AddTransient<IEliminarClienteAsyncAD, EliminarClienteAsyncAD>();
 builder.Services.AddTransient<IEliminarClienteAsyncLN, EliminarClienteAsyncLN>();
-
 builder.Services.AddTransient<IObtenerClienteAsyncAD, ObtenerClienteAsyncAD>();
 builder.Services.AddTransient<IObtenerClienteAsyncLN, ObtenerClienteAsyncLN>();
-
-
 builder.Services.AddTransient<IObtenerClientePorIdAsyncAD, ObtenerClientePorIdAsyncAD>();
 builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAsyncLN>();
 
@@ -51,8 +50,6 @@ builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAs
 #endregion
 
 builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
-
-
 
 // Add services to the container. /**DB CONTEXT**/
 
