@@ -15,4 +15,8 @@
     <ProjectReference Include="..\SGC.Abstracciones\SGC.Abstracciones.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Usuario\" />
+  </ItemGroup>
+
 </Project>

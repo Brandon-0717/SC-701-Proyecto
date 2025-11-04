@@ -67,7 +67,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedAccount = true;
 })
 .AddEntityFrameworkStores<Contexto>()
 .AddDefaultTokenProviders();

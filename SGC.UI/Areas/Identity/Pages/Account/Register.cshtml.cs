@@ -131,7 +131,7 @@ namespace SGC.UI.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Usuario creado.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -142,8 +142,34 @@ namespace SGC.UI.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    // await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(
+                        Input.Email,
+                        "Confirma tu cuenta en SGC",
+                        $@"
+                        <html>
+                        <body style=""font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;"">
+                            <div style=""max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"">
+                                <h2 style=""color: #2c3e50;"">¡Bienvenido a SGC!</h2>
+                                <p style=""font-size: 16px; color: #333;"">
+                                    Gracias por registrarte. Para activar tu cuenta, por favor confirma tu correo electrónico haciendo clic en el siguiente botón:
+                                </p>
+                                <p style=""text-align: center; margin: 30px 0;"">
+                                    <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'
+                                       style=""background-color: #3498db; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;"">
+                                       Confirmar correo
+                                    </a>
+                                </p>
+                                <p style=""font-size: 14px; color: #777;"">
+                                    Si no creaste esta cuenta, puedes ignorar este mensaje.
+                                </p>
+                                <hr style=""margin-top: 40px;"">
+                                <p style=""font-size: 12px; color: #aaa;"">
+                                    © {DateTime.Now.Year} SGC. Todos los derechos reservados.
+                                </p>
+                            </div>
+                        </body>
+                        </html>"
+);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
