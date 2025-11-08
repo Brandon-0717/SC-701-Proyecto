@@ -3,16 +3,20 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using SGC.Abstracciones.AccesoDatos.Cliente;
 using SGC.Abstracciones.AccesoDatos.Roles;
+using SGC.Abstracciones.AccesoDatos.Usuario;
 using SGC.Abstracciones.LogicaDeNegocio.Cliente;
 using SGC.Abstracciones.LogicaDeNegocio.Roles;
+using SGC.Abstracciones.LogicaDeNegocio.Usuario;
 using SGC.Abstracciones.Modelos.ModeloDA;
 using SGC.AccesoDatos;
 using SGC.AccesoDatos.Cliente;
 using SGC.AccesoDatos.Roles;
+using SGC.AccesoDatos.Usuario;
 using SGC.LogicaDeNegocio;
 using SGC.LogicaDeNegocio.Cliente;
 using SGC.LogicaDeNegocio.Mapper;
 using SGC.LogicaDeNegocio.Roles;
+using SGC.LogicaDeNegocio.Usuario;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +41,8 @@ builder.Services.AddTransient<IValidarExistenciaRolPorIdLN, ValidarExistenciaRol
 
 
 //Usuarios
+builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
+builder.Services.AddTransient<IListarUsuariosDA, ListarUsuariosDA>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
