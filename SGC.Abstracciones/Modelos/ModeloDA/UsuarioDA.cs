@@ -23,7 +23,7 @@ namespace SGC.Abstracciones.Modelos.ModeloDA
         public DateTime FechaNacimiento { get; set; }
 
         [MaxLength(512)]
-        public string? FotoPerfilUrl { get; set; }
+        public string FotoPerfilUrl { get; set; } = "/img/avatars/default.png";
 
         [Required]
         public Guid Estados_FK_AspNetUsers { get; set; }

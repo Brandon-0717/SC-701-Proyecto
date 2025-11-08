@@ -126,6 +126,9 @@ namespace SGC.UI.Areas.Identity.Pages.Account
                 user.FechaNacimiento = Input.FechaNacimiento;
                 user.Estados_FK_AspNetUsers = Input.Estados_FK_AspNetUsers;
 
+                if (string.IsNullOrWhiteSpace(user.FotoPerfilUrl))
+                    user.FotoPerfilUrl = "/img/avatars/default.png";
+
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
