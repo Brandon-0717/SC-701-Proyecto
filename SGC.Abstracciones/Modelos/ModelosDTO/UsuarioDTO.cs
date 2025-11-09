@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using SGC.Abstracciones.Modelos.ModeloDA;
 
 namespace SGC.Abstracciones.Modelos.ModelosDTO
 {
@@ -49,7 +50,7 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         public Guid Estados_FK_AspNetUsers { get; set; }
 
         public string? NombreEstado { get; set; }
-        public string? Rol { get; set; }
+        public List<RolDTO>? Roles { get; set; }
     }
 
     public class UsuarioRegistroModelDTO
@@ -72,5 +73,10 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,12}$",
             ErrorMessage = "La contraseña debe tener entre 8 y 12 caracteres, sin espacios, con al menos una mayúscula, una minúscula y un número.")]
         public string Contrasenia { get; set; }
+
+        [Required(ErrorMessage = "La confirmación de la contraseña es obligatoria")]
+        [Compare("Contrasenia", ErrorMessage = "La contraseña y la confirmación de la contraseña no coinciden")]
+        [Display(Name = "Confirmar Contraseña")]
+        public string ConfirmarContrasenia { get; set; }
     }
 }

@@ -2,18 +2,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using SGC.Abstracciones.AccesoDatos.Cliente;
+using SGC.Abstracciones.AccesoDatos.Estados;
 using SGC.Abstracciones.AccesoDatos.Roles;
 using SGC.Abstracciones.AccesoDatos.Usuario;
 using SGC.Abstracciones.LogicaDeNegocio.Cliente;
+using SGC.Abstracciones.LogicaDeNegocio.Estados;
 using SGC.Abstracciones.LogicaDeNegocio.Roles;
 using SGC.Abstracciones.LogicaDeNegocio.Usuario;
 using SGC.Abstracciones.Modelos.ModeloDA;
 using SGC.AccesoDatos;
 using SGC.AccesoDatos.Cliente;
+using SGC.AccesoDatos.Estados;
 using SGC.AccesoDatos.Roles;
 using SGC.AccesoDatos.Usuario;
 using SGC.LogicaDeNegocio;
 using SGC.LogicaDeNegocio.Cliente;
+using SGC.LogicaDeNegocio.Estados;
 using SGC.LogicaDeNegocio.Mapper;
 using SGC.LogicaDeNegocio.Roles;
 using SGC.LogicaDeNegocio.Usuario;
@@ -38,7 +42,12 @@ builder.Services.AddTransient<IModificarRolDA, ModificarRolDA>();
 builder.Services.AddTransient<IModificarRolLN, ModificarRolLN>();
 builder.Services.AddTransient<IvalidarExistenciaRolPorIdDA, ValidarExistenciaRolPorIdDA>();
 builder.Services.AddTransient<IValidarExistenciaRolPorIdLN, ValidarExistenciaRolPorIdLN>();
+builder.Services.AddTransient<IObtenerRolesPorIdUsuarioDA, ObtenerRolesPorIdUsuarioDA>();
+builder.Services.AddTransient<IObtenerRolesPorIdUsuarioLN, ObtenerRolesPorIdUsuarioLN>();
 
+//Estados
+builder.Services.AddTransient<IObtenerEstadoPorIdDA, ObtenerEstadoPorIdDA>();
+builder.Services.AddTransient<IObtenerEstadoPorIdLN, ObtenerEstadoPorIdLN>();
 
 //Usuarios
 builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
