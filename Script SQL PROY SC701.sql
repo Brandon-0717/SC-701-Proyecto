@@ -55,13 +55,13 @@ CREATE TABLE [AspNetUsers] (
     [LockoutEnabled] bit NOT NULL,
     [AccessFailedCount] int NOT NULL,
 	--Adicional al Identity
-	[Estados_FK_AspNetUsers] uniqueidentifier  NOT NULL,
+	[Estados_FK_AspNetUsers] uniqueidentifier NULL,
 	[Nombre] nvarchar(256) NOT NULL,
-	[PrimerApellido] nvarchar(256) NOT NULL,
-	[SegundoApellido] nvarchar(256) NOT NULL,
+	[PrimerApellido] nvarchar(256) NULL,
+	[SegundoApellido] nvarchar(256) NULL,
 	[Identificacion] nvarchar(256) unique NOT NULL,
-	[FechaNacimiento] datetime NOT NULL,
-	[FotoPerfilUrl] nvarchar(512) unique NOT NULL,
+	[FechaNacimiento] datetime NULL,
+	[FotoPerfilUrl] nvarchar(512) NULL,
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Eestado_usuario] FOREIGN KEY ([Estados_FK_AspNetUsers]) REFERENCES ESTADOS(ESTADOS_PK)
 );

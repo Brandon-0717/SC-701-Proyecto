@@ -43,6 +43,8 @@ builder.Services.AddTransient<IValidarExistenciaRolPorIdLN, ValidarExistenciaRol
 //Usuarios
 builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
 builder.Services.AddTransient<IListarUsuariosDA, ListarUsuariosDA>();
+builder.Services.AddTransient<IObtenerUsuarioPorIdentificacionLN, ObtenerUsuarioPorIdentificacionLN>();
+builder.Services.AddTransient<IObtenerUsuarioPorIdentificacionDA, ObtenerUsuarioPorIdentificacionDA>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
@@ -74,6 +76,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireNonAlphanumeric = false;
 })
 .AddEntityFrameworkStores<Contexto>()
 .AddDefaultTokenProviders();

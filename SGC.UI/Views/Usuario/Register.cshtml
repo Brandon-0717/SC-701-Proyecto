@@ -1,0 +1,61 @@
+﻿@model SGC.Abstracciones.Modelos.ModelosDTO.UsuarioRegistroModelDTO
+
+@{
+    ViewData["Title"] = "Registrar Usuario";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Registrar Usuario</h2>
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            Por favor corrige los errores antes de continuar.
+                        </div>
+                    }
+
+                    <form asp-action="Register" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="Identificacion" class="form-label"></label>
+                            <input asp-for="Identificacion" class="form-control" placeholder="Identificacion del usuario" />
+                            <span asp-validation-for="Identificacion" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" placeholder="Nombre de usuario" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Correo electrónico" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Contrasenia" class="form-label"></label>
+                            <input asp-for="Contrasenia" type="password" class="form-control" placeholder="Contraseña" />
+                            <span asp-validation-for="Contrasenia" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Registrar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a asp-controller="Cuenta" asp-action="Login">¿Ya tienes una cuenta? Inicia sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Habilita la validación del lado del cliente -->
+    <partial name="_ValidationScriptsPartial" />
+}
