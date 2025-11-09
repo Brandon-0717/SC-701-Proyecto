@@ -211,7 +211,7 @@ VALUES
     '2004-12-17',                            -- FechaNacimiento
     ''   -- FotoPerfilUrl
 );
-
+GO
 -- Asignar rol de Administrador
 INSERT INTO AspNetUserRoles (UserId, RoleId)
 VALUES
@@ -219,7 +219,7 @@ VALUES
     '11111111-1111-1111-1111-111111111111', -- Id del usuario insertado
     '00000000-0000-0000-0000-000000000001'  -- Id del rol Administrador
 );
-
+GO
 
 
 /*---------------------------------------------------------------------------------*/

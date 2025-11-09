@@ -54,6 +54,10 @@ builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
 builder.Services.AddTransient<IListarUsuariosDA, ListarUsuariosDA>();
 builder.Services.AddTransient<IObtenerUsuarioPorIdentificacionLN, ObtenerUsuarioPorIdentificacionLN>();
 builder.Services.AddTransient<IObtenerUsuarioPorIdentificacionDA, ObtenerUsuarioPorIdentificacionDA>();
+builder.Services.AddTransient<IObtenerUsuarioPorIdLN, ObtenerUsuarioPorIdLN>();
+builder.Services.AddTransient<IObtenerUsuarioPorIdDA, ObtenerUsuarioPorIdDA>();
+builder.Services.AddTransient<IEliminarUsuarioDA, EliminarUsuarioDA>();
+builder.Services.AddTransient<IEliminarUsuarioLN, EliminarUsuarioLN>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();

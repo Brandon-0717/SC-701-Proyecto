@@ -21,9 +21,11 @@ namespace SGC.UI.Controllers
         //----//
         private readonly IListarUsuariosLN _listarUsuariosLN;
         private readonly IObtenerUsuarioPorIdentificacionLN _obtenerUsuarioPorIdLN;
+        private readonly IEliminarUsuarioLN _eliminarUsuarioLN;
         public UsuarioController(
             IListarUsuariosLN listarUsuariosLN,
             IObtenerUsuarioPorIdentificacionLN obtenerUsuarioPorIdLN,
+            IEliminarUsuarioLN eliminarUsuarioLN,
             //----//
             UserManager<UsuarioDA> userManager,
             IUserStore<UsuarioDA> userStore,
@@ -33,6 +35,7 @@ namespace SGC.UI.Controllers
         {
             _listarUsuariosLN = listarUsuariosLN;
             _obtenerUsuarioPorIdLN = obtenerUsuarioPorIdLN;
+            _eliminarUsuarioLN = eliminarUsuarioLN;
             //----//
             _userManager = userManager;
             _userStore = userStore;
@@ -80,9 +83,17 @@ namespace SGC.UI.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> ObtenerUsuarios()
         {
             var response = await _listarUsuariosLN.Obtener();
+            return Json(response);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult>EliminarUsuario(string id)
+        {
+            var response = await _eliminarUsuarioLN.Eliminar(id);
             return Json(response);
         }
 
@@ -108,7 +119,7 @@ namespace SGC.UI.Controllers
             }
 
             var identificacionExiste = await _obtenerUsuarioPorIdLN.Obtener(usuarioForm.Identificacion);
-            if (identificacionExiste != null)
+            if (!identificacionExiste.EsError)
             {
                 ModelState.AddModelError(string.Empty, "La identificación ya está en uso.");
                 return View();

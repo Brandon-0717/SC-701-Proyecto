@@ -14,7 +14,16 @@
                     @if (!ViewData.ModelState.IsValid)
                     {
                         <div class="alert alert-danger">
-                            Por favor corrige los errores antes de continuar.
+                            <p>Por favor corrige los siguientes errores:</p>
+                            <ul>
+                                @foreach (var modelState in ViewData.ModelState.Values)
+                                {
+                                    foreach (var error in modelState.Errors)
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
                         </div>
                     }
 

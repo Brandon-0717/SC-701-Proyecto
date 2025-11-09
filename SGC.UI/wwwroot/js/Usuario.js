@@ -3,7 +3,15 @@
         tabla: null,
         init: function () {
             this.InicializarTabla();
+            this.RegistrarEventos();
         },
+        RegistrarEventos() {
+            $('#tablaUsuarios').on('click', '.btn-del', function () {
+                const idUsuario = $(this).data('id');
+                Usuarios.EliminarUsuario(idUsuario);
+            });
+        },
+        //---------------------------------
         InicializarTabla() {
             this.tabla = $('#tablaUsuarios').DataTable({
                 ajax: { url: '/Usuario/ObtenerUsuarios', type: 'GET', dataSrc: 'data' },
@@ -64,6 +72,43 @@
                 }
             });
         },
+        EliminarUsuario(idUsuario) {
+            Swal.fire({
+                title: "Estas seguro de eliminar este usuario?",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Si, eliminar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Usuario/EliminarUsuario',
+                        type: 'DELETE',
+                        data: { id: idUsuario },
+                        success: function (response) {
+                            if (!response.esError) {
+                                Swal.fire({
+                                    title: "Elemento eliminado!",
+                                    text: response.mensaje,
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                Usuarios.tabla.ajax.reload();
+
+                            } else {
+                                Swal.fire({
+                                    title: "Ha ocurrido un error",
+                                    text: response.mensaje,
+                                    icon: "error"
+                                });
+                                Usuarios.tabla.ajax.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        }
     }
     $(document).ready(() => Usuarios.init());
 })();
