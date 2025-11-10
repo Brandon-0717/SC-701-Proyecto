@@ -13,6 +13,8 @@ namespace SGC.LogicaDeNegocio.Mapper
             CreateMap<UsuarioDTO, UsuarioDA>();
             CreateMap<RolDA, RolDTO>();
             CreateMap<RolDTO, RolDA>();
+            CreateMap<EstadoDA, EstadoDTO>();
+            CreateMap<EstadoDTO, EstadoDA>();
             CreateMap<ClienteDA, ClienteDto>();
             CreateMap<ClienteDto, ClienteDA>();
         }   

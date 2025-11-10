@@ -10,22 +10,20 @@ namespace SGC.Abstracciones.Modelos.ModeloDA
         [Required, MaxLength(256)]
         public string Nombre { get; set; }
 
-        [Required, MaxLength(256)]
-        public string PrimerApellido { get; set; }
+        [MaxLength(256)]
+        public string? PrimerApellido { get; set; }
 
-        [Required, MaxLength(256)]
-        public string SegundoApellido { get; set; }
+        [MaxLength(256)]
+        public string? SegundoApellido { get; set; }
 
         [Required, MaxLength(256)]
         public string Identificacion { get; set; }
 
-        [Required]
-        public DateTime FechaNacimiento { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
 
         [MaxLength(512)]
         public string FotoPerfilUrl { get; set; } = "/img/avatars/default.png";
 
-        [Required]
-        public Guid Estados_FK_AspNetUsers { get; set; }
+        public Guid? Estados_FK_AspNetUsers { get; set; }
     }
 }
