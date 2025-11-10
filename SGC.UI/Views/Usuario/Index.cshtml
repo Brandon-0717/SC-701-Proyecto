@@ -22,6 +22,7 @@
                             <th>Rol</th>
                             <th>Estado</th>
 							<th>Correo Electrónico</th>
+                            <th>Correo Confirmado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -33,6 +34,8 @@
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("CrearUsuario")
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

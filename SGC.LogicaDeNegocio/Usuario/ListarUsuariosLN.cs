@@ -68,6 +68,8 @@ namespace SGC.LogicaDeNegocio.Usuario
         {
             foreach (var usuario in usuarios)
             {
+                if(usuario.Estados_FK_AspNetUsers == null) continue;
+
                 var customResEstado = await _obtenerEstadoPorIdLN.Obtener(usuario.Estados_FK_AspNetUsers.ToString());
                 if (!customResEstado.EsError)
                 {
@@ -76,7 +78,5 @@ namespace SGC.LogicaDeNegocio.Usuario
             }
             return usuarios;
         }
-
-
     }
 }

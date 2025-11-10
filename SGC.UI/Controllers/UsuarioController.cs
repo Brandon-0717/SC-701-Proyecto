@@ -22,10 +22,12 @@ namespace SGC.UI.Controllers
         private readonly IListarUsuariosLN _listarUsuariosLN;
         private readonly IObtenerUsuarioPorIdentificacionLN _obtenerUsuarioPorIdLN;
         private readonly IEliminarUsuarioLN _eliminarUsuarioLN;
+        private readonly ICrearUsuarioLN _crearUsuarioLN;
         public UsuarioController(
             IListarUsuariosLN listarUsuariosLN,
             IObtenerUsuarioPorIdentificacionLN obtenerUsuarioPorIdLN,
             IEliminarUsuarioLN eliminarUsuarioLN,
+            ICrearUsuarioLN crearUsuarioLN,
             //----//
             UserManager<UsuarioDA> userManager,
             IUserStore<UsuarioDA> userStore,
@@ -36,6 +38,7 @@ namespace SGC.UI.Controllers
             _listarUsuariosLN = listarUsuariosLN;
             _obtenerUsuarioPorIdLN = obtenerUsuarioPorIdLN;
             _eliminarUsuarioLN = eliminarUsuarioLN;
+            _crearUsuarioLN = crearUsuarioLN;
             //----//
             _userManager = userManager;
             _userStore = userStore;
@@ -96,6 +99,14 @@ namespace SGC.UI.Controllers
             var response = await _eliminarUsuarioLN.Eliminar(id);
             return Json(response);
         }
+
+        [HttpPost] 
+        public async Task<IActionResult> CrearUsuario(UsuarioDTO usuario) {
+            var baseUrl = $"{Request.Scheme}://{Request.Host}"; 
+            var response = await _crearUsuarioLN.Crear(usuario, baseUrl); 
+            return Json(response); 
+        }
+
 
         [HttpGet]
         public IActionResult Register()
