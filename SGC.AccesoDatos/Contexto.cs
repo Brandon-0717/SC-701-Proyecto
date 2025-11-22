@@ -6,8 +6,9 @@ using SGC.AccesoDatos.Modelos;
 
 namespace SGC.AccesoDatos
 {
-    public class Contexto : IdentityDbContext<UsuarioDA>
+    public class Contexto : IdentityDbContext<UsuarioDA, RolDA, string>
     {
+        
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
         }

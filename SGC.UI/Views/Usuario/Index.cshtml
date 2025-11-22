@@ -1,0 +1,43 @@
+﻿@model SGC.Abstracciones.Modelos.ModelosDTO.UsuarioDTO
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">Usuarios</h2>
+        <button type="button" class="btn btn-outline-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">
+            <i class="bi bi-plus-circle me-2"></i> Registrar usuario
+        </button>
+    </div>
+
+    <div class="card shadow border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="tablaUsuarios" class="table table-hover table-bordered table-striped align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Identificación</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+							<th>Correo Electrónico</th>
+                            <th>Correo Confirmado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- DataTables llenará esto automáticamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("CrearUsuario")
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Usuario.js" asp-append-version="true"></script>
+}

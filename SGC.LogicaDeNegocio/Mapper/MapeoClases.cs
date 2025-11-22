@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using SGC.Abstracciones.Modelos.ModeloDA;
+using SGC.Abstracciones.Modelos.ModelosDTO;
+using SGC.AccesoDatos.Modelos;
 
 namespace SGC.LogicaDeNegocio.Mapper
 {
@@ -6,7 +9,14 @@ namespace SGC.LogicaDeNegocio.Mapper
     {
         public MapeoClases()
         {
-            // CrearMapeos();
+            CreateMap<UsuarioDA, UsuarioDTO>();
+            CreateMap<UsuarioDTO, UsuarioDA>();
+            CreateMap<RolDA, RolDTO>();
+            CreateMap<RolDTO, RolDA>();
+            CreateMap<EstadoDA, EstadoDTO>();
+            CreateMap<EstadoDTO, EstadoDA>();
+            CreateMap<ClienteDA, ClienteDto>();
+            CreateMap<ClienteDto, ClienteDA>();
         }   
     }
 }
