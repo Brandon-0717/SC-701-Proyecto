@@ -20,6 +20,8 @@ namespace SGC.AccesoDatos
         public DbSet<HstGestionesCreditoDA> HstGestionesCredito { get; set; }
         public DbSet<SolicitudCreditoDA> SolicitudesCredito { get; set; }
 
+        public DbSet<BitacoraDA> Bitacora { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
