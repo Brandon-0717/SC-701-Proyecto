@@ -27,7 +27,7 @@
                         </div>
                     }
 
-                    <form asp-action="Register" method="post">
+                    <form id="formRegistrarUsuario">
                         <div class="form-group mb-3">
                             <label asp-for="Identificacion" class="form-label"></label>
                             <input asp-for="Identificacion" class="form-control" placeholder="Identificacion del usuario" />
@@ -56,6 +56,7 @@
                             <label asp-for="ConfirmarContrasenia" class="form-label"></label>
                             <input asp-for="ConfirmarContrasenia" type="password" class="form-control" placeholder="Confirmar Contraseña" />
 							<span asp-validation-for="ConfirmarContrasenia" class="text-danger"></span>
+						</div>
 
                         <button type="submit" class="btn btn-primary w-100 mt-3">Registrar</button>
                     </form>
@@ -72,4 +73,5 @@
 @section Scripts {
     <!-- Habilita la validación del lado del cliente -->
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Usuario.js" asp-append-version="true"></script>
 }

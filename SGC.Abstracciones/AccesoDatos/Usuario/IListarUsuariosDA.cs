@@ -1,10 +1,11 @@
 ﻿
 using SGC.Abstracciones.Modelos.ModeloDA;
+using SGC.Abstracciones.Modelos.ModelosDTO;
 
 namespace SGC.Abstracciones.AccesoDatos.Usuario
 {
     public interface IListarUsuariosDA
     {
-        Task<List<UsuarioDA>> Obtener();
+        Task<List<UsuarioDTO>> Obtener();
     }
 }

@@ -48,6 +48,8 @@ builder.Services.AddTransient<IObtenerRolesPorIdUsuarioLN, ObtenerRolesPorIdUsua
 //Estados
 builder.Services.AddTransient<IObtenerEstadoPorIdDA, ObtenerEstadoPorIdDA>();
 builder.Services.AddTransient<IObtenerEstadoPorIdLN, ObtenerEstadoPorIdLN>();
+builder.Services.AddTransient<IListarEstadosDA, ListarEstadosDA>();
+builder.Services.AddTransient<IListarEstadosLN, ListarEstadosLN>();
 
 //Usuarios
 builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
@@ -60,7 +62,13 @@ builder.Services.AddTransient<IEliminarUsuarioDA, EliminarUsuarioDA>();
 builder.Services.AddTransient<IEliminarUsuarioLN, EliminarUsuarioLN>();
 builder.Services.AddTransient<ICrearUsuarioDA, CrearUsuarioDA>();
 builder.Services.AddTransient<ICrearUsuarioLN, CrearUsuarioLN>();
-
+builder.Services.AddTransient<IAsignarRolesDA, AsignarRolesDA>();
+builder.Services.AddTransient<IAsignarRolesLN, AsignarRolesLN>();
+builder.Services.AddTransient<IModificarUsuarioDA, ModificarUsuarioDA>();
+builder.Services.AddTransient<IModificarUsuarioLN, ModificarUsuarioLN>();
+builder.Services.AddTransient<IRegistrarUsuarioLN, RegistrarUsuarioLN>();
+builder.Services.AddTransient<IObtenerUsuarioDtoPorIdDA, ObtenerUsuarioDtoPorIdDA>();
+builder.Services.AddTransient<IObtenerUsuarioDtoPorIdLN, ObtenerUsuarioDtoPorIdLN>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();

@@ -34,7 +34,7 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         [MaxLength(256, ErrorMessage = "El segundo apellido no puede exceder los 256 caracteres")]
         public string SegundoApellido { get; set; }
 
-        [MaxLength(256, ErrorMessage = "La identificación no puede exceder los 256 caracteres")]
+        [MaxLength(12, ErrorMessage = "La identificación no puede exceder los 12 caracteres")]
         public string Identificacion { get; set; }
 
         public DateTime? FechaNacimiento { get; set; }
@@ -47,6 +47,7 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
         public string? NombreEstado { get; set; }
 
         public List<RolDTO>? Roles { get; set; }
+        public List<string>? NombreRoles { get; set; }
 
         public bool EmailConfirmed { get; set; }
     }
@@ -54,11 +55,12 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
     public class UsuarioRegistroModelDTO
     {
         [Required(ErrorMessage = "La identificación es obligatoria")]
-        [MaxLength(256, ErrorMessage = "La identificación no puede exceder los 256 caracteres")]
+        [MinLength(9, ErrorMessage = "La identificación debe tener almenos 9 caracteres")]
+        [MaxLength(12, ErrorMessage = "La identificación no puede exceder los 256 caracteres")]
         public string Identificacion { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio")]
-        [MaxLength(256, ErrorMessage = "El nombre no puede exceder los 256 caracteres")]
+        [MaxLength(30, ErrorMessage = "El nombre no puede exceder los 256 caracteres")]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El correo electrónico es obligatorio")]
