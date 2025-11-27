@@ -40,7 +40,7 @@ namespace SGC.LogicaDeNegocio.Solicitud
             }
 
             var registradoId = await _da.ObtenerEstadoIdPorNombreAsync("REGISTRADO");
-            var devolucionId = await _da.ObtenerEstadoIdPorNombreAsync("DEVOLUCIÓN");
+            var devolucionId = await _da.ObtenerEstadoIdPorNombreAsync("DEVOLUCION");
 
             if (registradoId is null || devolucionId is null)
             {

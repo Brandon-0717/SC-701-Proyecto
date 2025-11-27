@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace SGC.UI.Controllers
 {
-    [Authorize] // <- SIN rol específico para evitar AccessDenied
+    [Authorize(Roles = "Administrador")] // ⬅ SOLO Administrador entra aquí
     public class SolicitudCreditoController : Controller
     {
         private readonly ISolicitudCreditoLN _ln;
