@@ -30,6 +30,18 @@
         </div>
     </div>
 
+    @* === NUEVO: Botón grande para crear solicitud === *@
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="mt-4">
+            <a asp-controller="SolicitudCredito" asp-action="Create"
+               class="btn btn-primary btn-lg px-5 py-3 shadow">
+                <i class="bi bi-plus-circle fs-4"></i>
+                <span class="ms-2 fw-semibold">Crear Nueva Solicitud de Crédito</span>
+            </a>
+        </div>
+    }
+
     <div class="mt-5 text-muted">
         <p class="mb-1">Proyecto académico - Semana 14/15</p>
         <p class="small">Desarrollado bajo el patrón MVC con arquitectura por capas</p>
