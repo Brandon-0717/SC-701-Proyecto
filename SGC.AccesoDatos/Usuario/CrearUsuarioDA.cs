@@ -15,8 +15,31 @@ namespace SGC.AccesoDatos.Usuario
 
         public async Task<bool> Crear(UsuarioDA usuario, string password)
         {
-            var result = await _userManager.CreateAsync(usuario, password);
-            return result.Succeeded;
+            try
+            {
+                var result = await _userManager.CreateAsync(usuario, password);
+
+                if (!result.Succeeded)
+                {
+                    // Mostrar los errores específicos de Identity
+                    var errores = string.Join(" | ", result.Errors.Select(e => e.Description));
+                    Console.WriteLine($"[IdentityError] No se pudo crear el usuario: {errores}");
+
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Mostrar detalles completos de la excepción
+                Console.WriteLine("[Exception] Error creando usuario:");
+                Console.WriteLine($"Mensaje: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+
+                return false;
+            }
         }
+
     }
 }
