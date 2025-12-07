@@ -111,6 +111,11 @@
                                 <i class="bi bi-shield-lock"></i> Privacidad
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Bitacora" asp-action="Bitacora">
+                                <i class="bi bi-shield-lock"></i> Seguimiento Gestiones
+                            </a>
+                        </li>
 
                         @* === NUEVO: botón de Nueva Solicitud (para cualquier usuario autenticado) === *@
                         @if (User.Identity.IsAuthenticated)
