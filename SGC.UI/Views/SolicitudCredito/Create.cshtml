@@ -1,0 +1,45 @@
+﻿@model SGC.UI.Models.SolicitudCreditoCreateVM
+
+<h2>Crear Solicitud de Crédito</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Cedula"></label>
+        <input asp-for="Cedula" class="form-control" />
+        <span asp-validation-for="Cedula" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MontoCredito"></label>
+        <input asp-for="MontoCredito" class="form-control" />
+        <span asp-validation-for="MontoCredito" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Comentario"></label>
+        <textarea asp-for="Comentario" class="form-control"></textarea>
+        <span asp-validation-for="Comentario" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoriaCreditoId">Categoría de crédito</label>
+        <input asp-for="CategoriaCreditoId" class="form-control" />
+        <span asp-validation-for="CategoriaCreditoId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Documentos</label>
+        <input asp-for="Archivos" type="file" multiple class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Crear</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -21,6 +21,10 @@ using SGC.LogicaDeNegocio.Estados;
 using SGC.LogicaDeNegocio.Mapper;
 using SGC.LogicaDeNegocio.Roles;
 using SGC.LogicaDeNegocio.Usuario;
+using SGC.Abstracciones.AccesoDatos.Solicitud;
+using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
+using SGC.AccesoDatos.Solicitud;
+using SGC.LogicaDeNegocio.Solicitud;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +52,8 @@ builder.Services.AddTransient<IObtenerRolesPorIdUsuarioLN, ObtenerRolesPorIdUsua
 //Estados
 builder.Services.AddTransient<IObtenerEstadoPorIdDA, ObtenerEstadoPorIdDA>();
 builder.Services.AddTransient<IObtenerEstadoPorIdLN, ObtenerEstadoPorIdLN>();
+builder.Services.AddTransient<IListarEstadosDA, ListarEstadosDA>();
+builder.Services.AddTransient<IListarEstadosLN, ListarEstadosLN>();
 
 //Usuarios
 builder.Services.AddTransient<IListarUsuariosLN, ListarUsuariosLN>();
@@ -60,7 +66,13 @@ builder.Services.AddTransient<IEliminarUsuarioDA, EliminarUsuarioDA>();
 builder.Services.AddTransient<IEliminarUsuarioLN, EliminarUsuarioLN>();
 builder.Services.AddTransient<ICrearUsuarioDA, CrearUsuarioDA>();
 builder.Services.AddTransient<ICrearUsuarioLN, CrearUsuarioLN>();
-
+builder.Services.AddTransient<IAsignarRolesDA, AsignarRolesDA>();
+builder.Services.AddTransient<IAsignarRolesLN, AsignarRolesLN>();
+builder.Services.AddTransient<IModificarUsuarioDA, ModificarUsuarioDA>();
+builder.Services.AddTransient<IModificarUsuarioLN, ModificarUsuarioLN>();
+builder.Services.AddTransient<IRegistrarUsuarioLN, RegistrarUsuarioLN>();
+builder.Services.AddTransient<IObtenerUsuarioDtoPorIdDA, ObtenerUsuarioDtoPorIdDA>();
+builder.Services.AddTransient<IObtenerUsuarioDtoPorIdLN, ObtenerUsuarioDtoPorIdLN>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
@@ -71,18 +83,24 @@ builder.Services.AddTransient<IEliminarClienteAsyncAD, EliminarClienteAsyncAD>()
 builder.Services.AddTransient<IEliminarClienteAsyncLN, EliminarClienteAsyncLN>();
 builder.Services.AddTransient<IObtenerClienteAsyncAD, ObtenerClienteAsyncAD>();
 builder.Services.AddTransient<IObtenerClienteAsyncLN, ObtenerClienteAsyncLN>();
+
 builder.Services.AddTransient<IObtenerClientePorIdAsyncAD, ObtenerClientePorIdAsyncAD>();
 builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAsyncLN>();
 
-
-
+// ***** NUEVO MÓDULO: SOLICITUDES DE CRÉDITO *****
+builder.Services.AddTransient<ISolicitudCreditoDA, SolicitudCreditoAD>();
+builder.Services.AddTransient<ISolicitudCreditoLN, SolicitudCreditoLN>();
 #endregion
 
 builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
 
 // Add services to the container. /**DB CONTEXT**/
+builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
 
-var connectionString = builder.Configuration.GetConnectionString("ContextoConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// DB CONTEXT
+var connectionString = builder.Configuration.GetConnectionString("ContextoConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<Contexto>(options =>
     options.UseSqlServer(connectionString));
 
@@ -97,11 +115,8 @@ builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 .AddEntityFrameworkStores<Contexto>()
 .AddDefaultTokenProviders();
 
-//-------------------------------------
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -109,7 +124,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -118,13 +132,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();   // <<< NECESARIO
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
-
-
-
 app.Run();

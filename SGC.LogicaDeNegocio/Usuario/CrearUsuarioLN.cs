@@ -20,19 +20,22 @@ namespace SGC.LogicaDeNegocio.Usuario
         private readonly IObtenerUsuarioPorIdentificacionLN _obtenerUsuarioPorIdentificacionLN;
         private readonly UserManager<UsuarioDA> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IAsignarRolesDA _asignarRolesDA;
 
         public CrearUsuarioLN(
             ICrearUsuarioDA crearUsuarioDA,
             IMapper mapper,
             IObtenerUsuarioPorIdentificacionLN obtenerUsuarioPorIdentificacionLN,
             UserManager<UsuarioDA> userManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IAsignarRolesDA asignarRolesDA)
         {
             _crearUsuarioDA = crearUsuarioDA;
             _mapper = mapper;
             _obtenerUsuarioPorIdentificacionLN = obtenerUsuarioPorIdentificacionLN;
             _userManager = userManager;
             _emailSender = emailSender;
+            _asignarRolesDA = asignarRolesDA;
         }
 
         public async Task<CustomResponse<UsuarioDTO>> Crear(UsuarioDTO usuarioDTO, string urlBase)
@@ -56,38 +59,54 @@ namespace SGC.LogicaDeNegocio.Usuario
                 return response;
             }
 
+            if (usuarioDTO.NombreRoles == null || !usuarioDTO.NombreRoles.Any())
+            {
+                response.EsError = true;
+                response.Mensaje = "Debe asignar al menos un rol al usuario.";
+                return response;
+            }
+
             // #2 - Mapear el UsuarioDTO a UsuarioDA
             var usuarioDA = _mapper.Map<UsuarioDA>(usuarioDTO);
             usuarioDA.UserName = usuarioDTO.Email;
+            usuarioDA.PhoneNumber = usuarioDTO.Telefono;
             usuarioDA.Id = Guid.NewGuid().ToString();
 
             // #3 - Generar una contraseña random
             string passwordRandom = GenerarContraseniaRamdom();
 
             // #4 - Crear el usuario
-            var resultadoCreacion = await _userManager.CreateAsync(usuarioDA, passwordRandom);
-            if (!resultadoCreacion.Succeeded)
+            var resCrearUsuario = await _crearUsuarioDA.Crear(usuarioDA,passwordRandom);
+
+            if (!resCrearUsuario)
             {
                 response.EsError = true;
-                response.Mensaje = "Error al crear el usuario: " +
-                                   string.Join(", ", resultadoCreacion.Errors.Select(e => e.Description));
+                response.Mensaje = "Error al crear el usuario:";           
                 return response;
             }
-            
-            // Asignar roles seleccionados
-            /*if (roles != null && roles.Any())
-            {
-                var rolResult = await _userManager.AddToRolesAsync(usuarioDA, roles);
-                if (!rolResult.Succeeded)
-                {
-                    response.EsError = true;
-                    response.Mensaje = "Usuario creado pero hubo un error asignando roles: " +
-                                        string.Join(", ", rolResult.Errors.Select(e => e.Description));
-                    return response;
-                }
-            }*/
 
+            // Asignar roles seleccionados
+            //var resAsignarRoles = await _crearUsuarioDA.
+
+            var resAsignarRoles = false;
+
+            
+            var rolesSeparados = usuarioDTO.NombreRoles
+            .SelectMany(r => r.Split(',', StringSplitOptions.RemoveEmptyEntries))
+            .Select(r => r.Trim())
+            .ToList();
+
+            resAsignarRoles = await _asignarRolesDA.AsignarRoles(usuarioDA.Identificacion, rolesSeparados);
+            
+
+            // #5 - Enviar correo de confirmación
             await EnviarCorreoConfirmacion(usuarioDA, passwordRandom, urlBase);
+
+            if (!resAsignarRoles)
+            {
+                response.Mensaje = "Usuario creado pero no se asigno rol.";
+                return response;
+            }
 
             response.Mensaje = "Usuario creado con éxito.";
             return response;
