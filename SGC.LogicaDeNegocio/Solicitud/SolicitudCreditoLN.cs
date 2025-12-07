@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SGC.Abstracciones.AccesoDatos.Solicitud;
+using SGC.Abstracciones.LogicaDeNegocio.Bitacora;
 using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
 using SGC.Abstracciones.Modelos;
 using SGC.Abstracciones.Modelos.ModelosDTO;
@@ -13,10 +14,12 @@ namespace SGC.LogicaDeNegocio.Solicitud
     public class SolicitudCreditoLN : ISolicitudCreditoLN
     {
         private readonly ISolicitudCreditoDA _da;
+        private ICrearBitacoraLN _crearBitacoraLN;
 
-        public SolicitudCreditoLN(ISolicitudCreditoDA da)
+        public SolicitudCreditoLN(ISolicitudCreditoDA da, ICrearBitacoraLN crearBitacoraLN)
         {
             _da = da;
+            _crearBitacoraLN = crearBitacoraLN;
         }
 
         public async Task<CustomResponse<Guid>> CrearSolicitudAsync(
@@ -63,11 +66,25 @@ namespace SGC.LogicaDeNegocio.Solicitud
                 clienteId.Value, registradoId.Value, dto.CategoriaCreditoId,
                 userId, dto.MontoCredito, dto.Comentario, creadoPor);
 
+            BitacoraDto bitacoraDto = new BitacoraDto
+            {
+                Gestion = dto.Cedula,
+                Accion = "Creacion de solicitud Crédito",
+                Comentario = $"Se crea  gestion para cliente: {dto.Cedula}",
+                Usuario = userId,
+                Fecha = DateTime.UtcNow
+            };
+            _crearBitacoraLN.CrearBitacora(bitacoraDto);
+
+
+
             if (dto.Archivos.Any())
                 await _da.AgregarArchivosAsync(id, userId, dto.Archivos, creadoPor);
 
             resp.Data = id;
             resp.Mensaje = "Solicitud creada correctamente.";
+
+
 
             return resp;
         }

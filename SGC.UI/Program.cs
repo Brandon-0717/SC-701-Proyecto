@@ -25,6 +25,10 @@ using SGC.Abstracciones.AccesoDatos.Solicitud;
 using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
 using SGC.AccesoDatos.Solicitud;
 using SGC.LogicaDeNegocio.Solicitud;
+using SGC.Abstracciones.LogicaDeNegocio.Bitacora;
+using SGC.LogicaDeNegocio.Bitacora;
+using SGC.AccesoDatos.Bitacora;
+using SGC.Abstracciones.AccesoDatos.Bitacora;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +94,15 @@ builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAs
 // ***** NUEVO MÓDULO: SOLICITUDES DE CRÉDITO *****
 builder.Services.AddTransient<ISolicitudCreditoDA, SolicitudCreditoAD>();
 builder.Services.AddTransient<ISolicitudCreditoLN, SolicitudCreditoLN>();
+
+
+
+//BITACORA
+builder.Services.AddTransient<ICrearBitacoraAD, CrearBitacoraAD>();
+builder.Services.AddTransient<ICrearBitacoraLN, CrearBitacoraLN>();
+builder.Services.AddTransient<IListarBitacoraLN, ListarBitacoraLN>();
+builder.Services.AddTransient<IListarBitacoraAD, ListarBitacoraAD>();
+
 #endregion
 
 builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
