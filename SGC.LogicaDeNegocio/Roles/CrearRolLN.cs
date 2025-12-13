@@ -45,8 +45,8 @@ namespace SGC.LogicaDeNegocio.Roles
             // Mapear el RolDTO a RolDA
 
             var rolDA = _mapper.Map<RolDA>(rol);
-            rol.Id = Guid.NewGuid().ToString();
-            rol.Name = char.ToUpper(rol.Name[0]) + rol.Name.Substring(1).ToLower(); // Capitalizar el nombre del rol
+            rolDA.Id = Guid.NewGuid().ToString();
+            rolDA.Name = char.ToUpper(rol.Name[0]) + rol.Name.Substring(1).ToLower(); // Capitalizar el nombre del rol
             rolDA.NormalizedName = rol.Name.ToUpper();
 
             // Crear el rol

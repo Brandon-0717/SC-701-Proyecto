@@ -1,0 +1,92 @@
+﻿@model SGC.Abstracciones.Modelos.ModelosDTO.UsuarioDTO
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalModificarUsuario" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <!-- Header -->
+            <div class="modal-header bg-warning text-dark rounded-top-4">
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-pencil-square me-2"></i> Modificar Usuario
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body px-4 py-3">
+                <form id="formModificarUsuario">
+                    <input id="hiddenId" type="hidden" asp-for="Id" />
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 d-none"></div>
+
+                    <!-- IDENTIFICACIÓN -->
+                    <fieldset class="border rounded-3 p-3 mb-4">
+                        <legend class="float-none w-auto px-2 text-warning fw-semibold">
+                            <i class="bi bi-person-vcard me-1"></i> Identificación
+                        </legend>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Identificacion" class="form-label fw-semibold"></label>
+                                <input id="edt-identificacion" asp-for="Identificacion" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- DATOS PERSONALES -->
+                    <fieldset class="border rounded-3 p-3 mb-4">
+                        <legend class="float-none w-auto px-2 text-warning fw-semibold">
+                            <i class="bi bi-person-lines-fill me-1"></i> Datos Personales
+                        </legend>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Nombre" class="form-label fw-semibold"></label>
+                                <input id="edt-nombre" asp-for="Nombre" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="PrimerApellido" class="form-label fw-semibold"></label>
+                                <input id="edt-apellido1" asp-for="PrimerApellido" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SegundoApellido" class="form-label fw-semibold"></label>
+                                <input id="edt-apellido2" asp-for="SegundoApellido" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="FechaNacimiento" class="form-label fw-semibold"></label>
+                                <input id="edt-fechaNacimiento" asp-for="FechaNacimiento" type="date" class="form-control" />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- CREDENCIALES -->
+                    <fieldset class="border rounded-3 p-3 mb-4">
+                        <legend class="float-none w-auto px-2 text-warning fw-semibold">
+                            <i class="bi bi-lock me-1"></i> Credenciales
+                        </legend>
+                        <label asp-for="Email" class="form-label fw-semibold"></label>
+                        <input id="edt-email" asp-for="Email" class="form-control" />
+
+                        <label asp-for="Telefono" class="form-label fw-semibold mt-2"></label>
+                        <input id="edt-telefono" asp-for="Telefono" class="form-control" />
+
+                        <label class="form-label fw-semibold mt-3">Roles (Ctrl + click selección múltiple)</label>
+                        <select multiple id="edt-selectRol" asp-for="NombreRoles" class="form-select"></select>
+
+                        <label class="form-label fw-semibold mt-3">Estado)</label>
+                        <select id="edt-selectEstado" asp-for="Estados_FK_AspNetUsers" class="form-select"></select>
+                    </fieldset>
+
+                    <!-- FOOTER -->
+                    <div class="modal-footer border-0 pt-3">
+                        <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-warning px-4">
+                            <i class="bi bi-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -19,11 +19,11 @@ namespace SGC.Abstracciones.Modelos.ModeloDA
         // Auditoría
         [MaxLength(128)]
         [Column("CreadoPor")]
-        public string CreadoPor { get; set; }
+        public string? CreadoPor { get; set; }
 
         [MaxLength(128)]
         [Column("ModificadoPor")]
-        public string ModificadoPor { get; set; }
+        public string? ModificadoPor { get; set; }
 
         [Column("Fecha_Modificacion")]
         public DateTime? Fecha_Modificacion { get; set; }
