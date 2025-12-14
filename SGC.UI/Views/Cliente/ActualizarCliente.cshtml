@@ -1,0 +1,117 @@
+﻿@model SGC.Abstracciones.Modelos.ModelosDTO.ClienteDto
+<!-- PK obligatorio -->
+<form asp-action="ActualizarCliente" method="post">
+<input type="hidden" asp-for="CLIENTES_PK" />
+
+
+<div class="form-group">
+<label>Cédula</label>
+<input asp-for="Cedula" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Primer Nombre</label>
+<input asp-for="Primer_Nombre" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Segundo Nombre</label>
+<input asp-for="Segundo_Nombre" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Primer Apellido</label>
+<input asp-for="Primer_Apellido" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Segundo Apellido</label>
+<input asp-for="Segundo_Apellido" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Fecha de Nacimiento</label>
+<input asp-for="Fecha_Nacimiento" type="date" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Teléfono</label>
+<input asp-for="Telefono" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Correo Electrónico</label>
+<input asp-for="Correo_Electronico" class="form-control" />
+</div>
+
+
+<div class="form-group">
+<label>Sexo</label>
+<select asp-for="Sexo" class="form-control">
+<option value="true">Masculino</option>
+<option value="false">Femenino</option>
+</select>
+</div>
+
+
+<div class="form-group">
+<label>Dirección Exacta</label>
+<input asp-for="Direccion_Exacta" class="form-control" />
+</div>
+
+
+    <div class="form-group">
+        <label>Estado</label>
+
+        <select asp-for="ESTADOS_FK_CLIENTES"
+                id="ESTADOS_FK_CLIENTES"
+                name="ESTADOS_FK_CLIENTES"
+                class="form-control"
+                required>
+            <option value="">Seleccione un estado</option>
+        </select>
+
+        <span asp-validation-for="ESTADOS_FK_CLIENTES" class="text-danger"></span>
+    </div>
+
+
+<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+<a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const select = document.getElementById("ESTADOS_FK_CLIENTES");
+
+            fetch('/Estado/ListarEstados')
+                .then(res => res.json())
+                .then(resp => {
+
+                    console.log("Estados cargados:", resp);
+
+                    if (resp.esError || !resp.data) return;
+
+                    resp.data.forEach(e => {
+
+                        if (!e.estadoS_PK) return;
+
+                        const option = document.createElement("option");
+                        option.value = e.estadoS_PK;        // 👈 GUID correcto
+                        option.text  = e.nombre_Estado;     // 👈 texto correcto
+
+                        select.appendChild(option);
+                    });
+                })
+                .catch(err => console.error(err));
+        });
+    </script>
+}

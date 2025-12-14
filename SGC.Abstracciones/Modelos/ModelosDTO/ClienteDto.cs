@@ -9,7 +9,7 @@ namespace SGC.Abstracciones.Modelos.ModelosDTO
 {
     public class ClienteDto
     {
-        [Required(ErrorMessage = "El campo CLIENTES_PK es requerido.")]
+       
         public Guid CLIENTES_PK { get; set; }
 
         [Required(ErrorMessage = "El campo ESTADOS_FK_CLIENTES es requerido.")]
