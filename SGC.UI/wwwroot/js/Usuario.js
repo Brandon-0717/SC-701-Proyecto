@@ -41,6 +41,11 @@
                 Usuarios.ModificarUsuario();
             });
 
+            $(document).on('submit', '#formLogin', function (e) {
+                e.preventDefault();
+                Usuarios.Login();
+            });
+
         },
         //---------------------------------
         InicializarTabla() {
@@ -381,6 +386,42 @@
                 }
             });
 
+        },
+        Login() {
+            let formulario = $('#formLogin');
+            let serverErrorDiv = $('#serverErrorSummary');
+
+            // Limpiar errores anteriores
+            serverErrorDiv.addClass('d-none').empty();
+
+            if (!formulario.valid()) return;
+
+            $.ajax({
+                url: '/Usuario/Login',
+                type: 'POST',
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                data: formulario.serialize(),
+                success: function (response) {
+                    if (!response.esError) {
+                        formulario[0].reset();
+                        window.location.href = '/Home/Index';
+                    } else {
+                        formulario[0].reset();
+
+                        // Mostrar error general
+                        if (response.mensaje) {
+                            serverErrorDiv.html(response.mensaje);
+                            serverErrorDiv.removeClass('d-none');
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    serverErrorDiv.html('Error de conexión. Intente nuevamente.');
+                    serverErrorDiv.removeClass('d-none');
+                }
+            });
         }
     }
     $(document).ready(() => Usuarios.init());

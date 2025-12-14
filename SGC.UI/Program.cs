@@ -77,6 +77,8 @@ builder.Services.AddTransient<IModificarUsuarioLN, ModificarUsuarioLN>();
 builder.Services.AddTransient<IRegistrarUsuarioLN, RegistrarUsuarioLN>();
 builder.Services.AddTransient<IObtenerUsuarioDtoPorIdDA, ObtenerUsuarioDtoPorIdDA>();
 builder.Services.AddTransient<IObtenerUsuarioDtoPorIdLN, ObtenerUsuarioDtoPorIdLN>();
+builder.Services.AddTransient<ILoginDA, LoginDA>();
+builder.Services.AddTransient<ILoginLN, LoginLN>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
@@ -128,7 +130,14 @@ builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 .AddEntityFrameworkStores<Contexto>()
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Usuario/Login";  
+    options.AccessDeniedPath = "/Home/AccesoDenegado";
+});
+
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -150,7 +159,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Usuario}/{action=Login}/{id?}");
 
 app.MapRazorPages();
 app.Run();

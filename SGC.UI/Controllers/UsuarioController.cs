@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -21,6 +22,7 @@ namespace SGC.UI.Controllers
         private readonly IObtenerUsuarioPorIdLN _obtenerUsuarioPorIdLN;
         private readonly IRegistrarUsuarioLN _registrarUsuarioLN;
         private readonly IObtenerUsuarioDtoPorIdLN _obtenerUsuarioDtoPorIdLN;
+        private readonly ILoginLN _loginLN;
 
 
         public UsuarioController(
@@ -32,6 +34,7 @@ namespace SGC.UI.Controllers
             IObtenerUsuarioPorIdLN obtenerUsuarioPorIdLN,
             IRegistrarUsuarioLN registrarUsuarioLN,
             IObtenerUsuarioDtoPorIdLN obtenerUsuarioDtoPorIdLN,
+            ILoginLN loginLN,
             //----//
             SignInManager<UsuarioDA> signInManager,
             UserManager<UsuarioDA> userManager
@@ -46,6 +49,7 @@ namespace SGC.UI.Controllers
             _obtenerUsuarioPorIdLN = obtenerUsuarioPorIdLN;
             _registrarUsuarioLN = registrarUsuarioLN;
             _obtenerUsuarioDtoPorIdLN = obtenerUsuarioDtoPorIdLN;
+            _loginLN = loginLN;
             //----//
             _signInManager = signInManager;
             _userManager = userManager;
@@ -71,11 +75,11 @@ namespace SGC.UI.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //----------------------------------------------------
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -103,17 +107,18 @@ namespace SGC.UI.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult>EliminarUsuario(string id)
+        public async Task<IActionResult> EliminarUsuario(string id)
         {
             var response = await _eliminarUsuarioLN.Eliminar(id);
             return Json(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CrearUsuario(UsuarioDTO usuario) {
-            var baseUrl = $"{Request.Scheme}://{Request.Host}"; 
-            var response = await _crearUsuarioLN.Crear(usuario, baseUrl); 
-            return Json(response); 
+        public async Task<IActionResult> CrearUsuario(UsuarioDTO usuario)
+        {
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            var response = await _crearUsuarioLN.Crear(usuario, baseUrl);
+            return Json(response);
         }
 
         [HttpPut]
@@ -135,6 +140,19 @@ namespace SGC.UI.Controllers
             var baseUrl = $"{Request.Scheme}://{Request.Host}";
             var response = await _registrarUsuarioLN.Registrar(usuarioForm, baseUrl);
             return Json(response);
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+             var response = await _loginLN.Login(email, password);
+             return Json(response);
         }
     }
 }
