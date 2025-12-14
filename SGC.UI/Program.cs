@@ -25,6 +25,10 @@ using SGC.Abstracciones.AccesoDatos.Solicitud;
 using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
 using SGC.AccesoDatos.Solicitud;
 using SGC.LogicaDeNegocio.Solicitud;
+using SGC.Abstracciones.LogicaDeNegocio.Bitacora;
+using SGC.LogicaDeNegocio.Bitacora;
+using SGC.AccesoDatos.Bitacora;
+using SGC.Abstracciones.AccesoDatos.Bitacora;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +77,8 @@ builder.Services.AddTransient<IModificarUsuarioLN, ModificarUsuarioLN>();
 builder.Services.AddTransient<IRegistrarUsuarioLN, RegistrarUsuarioLN>();
 builder.Services.AddTransient<IObtenerUsuarioDtoPorIdDA, ObtenerUsuarioDtoPorIdDA>();
 builder.Services.AddTransient<IObtenerUsuarioDtoPorIdLN, ObtenerUsuarioDtoPorIdLN>();
+builder.Services.AddTransient<ILoginDA, LoginDA>();
+builder.Services.AddTransient<ILoginLN, LoginLN>();
 
 //Cliente
 builder.Services.AddTransient<IActualizarClienteAsyncAD, ActualizarClienteAsyncAD>();
@@ -90,6 +96,15 @@ builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAs
 // ***** NUEVO MÓDULO: SOLICITUDES DE CRÉDITO *****
 builder.Services.AddTransient<ISolicitudCreditoDA, SolicitudCreditoAD>();
 builder.Services.AddTransient<ISolicitudCreditoLN, SolicitudCreditoLN>();
+
+
+
+//BITACORA
+builder.Services.AddTransient<ICrearBitacoraAD, CrearBitacoraAD>();
+builder.Services.AddTransient<ICrearBitacoraLN, CrearBitacoraLN>();
+builder.Services.AddTransient<IListarBitacoraLN, ListarBitacoraLN>();
+builder.Services.AddTransient<IListarBitacoraAD, ListarBitacoraAD>();
+
 #endregion
 
 builder.Services.AddTransient<IEmailSender,SmtpEmailSender>();
@@ -115,7 +130,14 @@ builder.Services.AddIdentity<UsuarioDA, RolDA>(options =>
 .AddEntityFrameworkStores<Contexto>()
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Usuario/Login";  
+    options.AccessDeniedPath = "/Home/AccesoDenegado";
+});
+
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -137,7 +159,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Usuario}/{action=Login}/{id?}");
 
 app.MapRazorPages();
 app.Run();
