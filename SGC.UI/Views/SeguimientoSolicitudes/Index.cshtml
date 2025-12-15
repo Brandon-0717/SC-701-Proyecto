@@ -1,0 +1,84 @@
+﻿@model List<SGC.Abstracciones.Modelos.ModeloDA.SolicitudCreditoDA>
+
+@{
+    ViewData["Title"] = "Seguimiento de Solicitudes de Crédito";
+}
+
+<h2 class="mb-4">Seguimiento de Solicitudes de Crédito</h2>
+
+<!-- Anti-forgery token para fetch POST -->
+<form asp-antiforgery="true"></form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th># Solicitud</th>
+            <th>Cliente</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th style="width: 260px;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SOLICITUDES_CREDITO_PK</td>
+
+                    <td>
+                        @item.CLIENTES_FK_SOLICITUES_CREDITO
+                    </td>
+
+                    <td>
+                        ₡ @item.Monto_Credito.ToString("N2")
+                    </td>
+
+                    <td>
+                        <span class="badge bg-info text-dark">
+                            @item.ESTADOS_FK_SOLICITUDES_CREDITO
+                        </span>
+                    </td>
+
+                    <td>
+                        @item.Fecha_Modificacion?.ToString("dd/MM/yyyy")
+                    </td>
+
+                    <td class="d-flex gap-1 flex-wrap">
+                        <button type="button"
+                                class="btn btn-sm btn-success btn-enviar"
+                                data-id="@item.SOLICITUDES_CREDITO_PK">
+                            Enviar
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-sm btn-warning btn-devolver">
+                            data-id="@item.SOLICITUDES_CREDITO_PK">
+                            Devolver
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-sm btn-danger btn-aprobar"
+                                data-id="@item.SOLICITUDES_CREDITO_PK">
+                            Aprobar
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center text-muted">
+                    No hay solicitudes para mostrar
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/seguimiento-solicitudes.js"></script>
+}

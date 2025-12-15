@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGC.UI.Models;
 
@@ -11,6 +12,11 @@ namespace SGC.UI.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public IActionResult AccesoDenegado()
+        {
+            return View();
         }
 
         public IActionResult Index()

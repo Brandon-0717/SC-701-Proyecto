@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿
+<div class="min-vh-85 d-flex align-items-center justify-content-center px-3 py-4"
+     style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+
+    <div class="card border-0 shadow-lg rounded-4 w-100" style="max-width: 420px;">
+        <div class="card-body p-4 p-md-5">
+
+            <div class="text-center mb-4">
+                <i class="bi bi-shield-lock-fill text-primary mb-3"
+                   style="font-size: 3rem;"></i>
+                <h3 class="fw-bold text-primary mb-1">SGC</h3>
+                <p class="text-muted small mb-4">Sistema de Gestión de Créditos</p>
+            </div>
+
+            <form id="formLogin">
+                @Html.AntiForgeryToken()
+                <div id="serverErrorSummary" class="alert alert-danger d-none py-2 small" role="alert"></div>
+
+                <!-- Usuario -->
+                <div class="form-floating mb-3 position-relative">
+                    <i class="bi bi-person-fill position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                    <input type="email"
+                           name="Email"
+                           class="form-control ps-5"
+                           placeholder="usuario@ejemplo.com"
+                           required />
+                    <label class="ps-5">Usuario</label>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="form-floating mb-4 position-relative">
+                    <i class="bi bi-key-fill position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                    <input type="password"
+                           name="Password"
+                           class="form-control ps-5"
+                           placeholder="Contraseña"
+                           required />
+                    <label class="ps-5">Contraseña</label>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100 fw-semibold rounded-3 py-2 border-0"
+                        style="background: linear-gradient(135deg, #4a6bff 0%, #3a56d4 100%);">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                    Iniciar sesión
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Usuario.js" asp-append-version="true"></script>
 }
