@@ -1,5 +1,7 @@
 ﻿using SGC.Abstracciones.AccesoDatos.Estados;
+using SGC.Abstracciones.LogicaDeNegocio.Bitacora;
 using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
+using SGC.Abstracciones.Modelos.ModelosDTO;
 using System;
 using System.Threading.Tasks;
 
@@ -7,33 +9,58 @@ namespace SGC.LogicaDeNegocio.Solicitud
 {
     public class CambiarEstadoSolicitudLN : ICambiarEstadoSolicitudLN
     {
-        // 👉 Namespace COMPLETO (sin using)
         private readonly SGC.Abstracciones.AccesoDatos.Solicitud.ICambiarEstadoSolicitudDA _da;
         private readonly IObtenerEstadoPorNombreDA _estadoDA;
+        private readonly ICrearBitacoraLN _crearBitacoraLN;
 
         public CambiarEstadoSolicitudLN(
             SGC.Abstracciones.AccesoDatos.Solicitud.ICambiarEstadoSolicitudDA da,
-            IObtenerEstadoPorNombreDA estadoDA)
+            IObtenerEstadoPorNombreDA estadoDA,
+            ICrearBitacoraLN crearBitacoraLN)
         {
             _da = da;
             _estadoDA = estadoDA;
+            _crearBitacoraLN = crearBitacoraLN;
         }
 
         public async Task<bool> CambiarEstadoAsync(
-            Guid solicitudId,
-            string nombreNuevoEstado,
-            string comentario,
-            string userId)
+     Guid solicitudId,
+     string nombreNuevoEstado,
+     string comentario,
+     string userId)
         {
-            var estado = await _estadoDA.ObtenerPorNombreAsync(nombreNuevoEstado);
-            if (estado == null) return false;
+            var estadoNuevo = await _estadoDA.ObtenerPorNombreAsync(nombreNuevoEstado);
+            if (estadoNuevo == null)
+                return false;
 
-            return await _da.CambiarEstadoAsync(
+            var resultado = await _da.CambiarEstadoAsync(
                 solicitudId,
-                estado.ESTADOS_PK,
+                estadoNuevo.ESTADOS_PK,
                 comentario,
                 userId
             );
+
+            if (!resultado)
+                return false;
+
+            
+
+
+            var bitacoraDto = new BitacoraDto
+            {
+                Gestion = 0, // ✅ INT válido (ajusta si luego tienes el ID real)
+                Accion = "CAMBIO_ESTADO",
+                Comentario = $"Estado cambiado a {estadoNuevo.Nombre_Estado}. {comentario}",
+                Usuario = userId,
+                Fecha = DateTime.UtcNow
+            };
+
+            // ✅ Método void, sin await
+            _crearBitacoraLN.CrearBitacora(bitacoraDto);
+
+            return true;
         }
+
+        
     }
 }
