@@ -1,0 +1,26 @@
+﻿@model SGC.Abstracciones.Modelos.ModelosDTO.ClienteDto
+
+
+<h2 class="text-danger">Eliminar Cliente</h2>
+
+
+<div class="alert alert-warning">
+    ¿Está seguro que desea eliminar este cliente?
+</div>
+
+
+<table class="table table-bordered">
+    <tr><th>Cédula</th><td>@Model.Cedula</td></tr>
+    <tr><th>Nombre</th><td>@Model.Primer_Nombre @Model.Primer_Apellido</td></tr>
+    <tr><th>Correo</th><td>@Model.Correo_Electronico</td></tr>
+</table>
+
+
+<form asp-action="EliminarCliente" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="clienteId" value="@Model.CLIENTES_PK" />
+
+
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

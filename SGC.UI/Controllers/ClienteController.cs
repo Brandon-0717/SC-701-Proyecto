@@ -29,9 +29,18 @@ namespace SGC.UI.Controllers
 
 
         // GET: ClienteController
-        public ActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await _obtenerClienteAsyncLN.ObtenerClientesAsync();
+
+            if (response == null || response.EsError || response.Data == null)
+            {
+                // SIEMPRE enviar una colección, nunca null
+                return View(new List<ClienteDto>());
+            }
+
+            return View(response.Data); // 👈 AQUÍ ESTÁ LA CLAVE
         }
 
         [HttpGet]
@@ -54,57 +63,93 @@ namespace SGC.UI.Controllers
             return Ok(response);
         }
 
-        //public IActionResult Test()
-        //{
-        //    return Content("✅ ClienteController cargado correctamente");
-        //}
+        [HttpGet]
+        public IActionResult Crear()
+        {
+            return View("CrearCliente");
+        }
+
 
         [HttpPost]
-        public async Task<IActionResult> CrearCliente([FromBody] 
-        ClienteDto cliente)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CrearCliente(ClienteDto cliente)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errores = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new
+                    {
+                        Campo = x.Key,
+                        Errores = x.Value.Errors.Select(e => e.ErrorMessage)
+                    })
+                    .ToList();
+
+                throw new Exception(
+                    System.Text.Json.JsonSerializer.Serialize(errores)
+                );
             }
 
             var response = await _crearClienteAsyncLN.CrearClienteAsync(cliente);
 
             if (response.EsError)
-                return BadRequest(response);
+                throw new Exception(response.Mensaje);
 
-            return Ok(response);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(Guid id)
+        {
+            var response = await _obtenerClientePorIdAsyncLN.ObtenerClientePorIdAsync(id.ToString());
+
+            if (response.EsError)
+                return NotFound();
+
+            return View("ActualizarCliente", response.Data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarCliente([FromBody] ClienteDto cliente)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActualizarCliente(ClienteDto cliente)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+                return View("ActualizarCliente", cliente);
 
             var response = await _actualizarClienteAsyncLN.ActualizarClienteAsync(cliente);
 
             if (response.EsError)
-                return BadRequest(response);
+            {
+                ModelState.AddModelError("", response.Mensaje);
+                return View("ActualizarCliente", cliente);
+            }
 
-            return Ok(response);
+            return RedirectToAction("Index");
         }
-        [HttpPost]
-        public async Task<IActionResult> EliminarCliente([FromBody] string clienteId)
-        {
-            if (string.IsNullOrWhiteSpace(clienteId))
-                return BadRequest("El clienteId es requerido.");
 
+        [HttpGet]
+        public async Task<IActionResult> EliminarClientee(Guid id)
+        {
+            var response = await _obtenerClientePorIdAsyncLN.ObtenerClientePorIdAsync(id.ToString());
+
+            if (response.EsError)
+                return NotFound();
+
+            return View("EliminarCliente", response.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminarCliente(string clienteId)
+        {
             var response = await _eliminarClienteAsyncLN.EliminarClienteAsync(clienteId);
 
             if (response.EsError)
-                return BadRequest(response);
+                return View("EliminarCliente");
 
-            return Ok(response);
+            return RedirectToAction("Index");
         }
-
     }
+
 }
-//
+
