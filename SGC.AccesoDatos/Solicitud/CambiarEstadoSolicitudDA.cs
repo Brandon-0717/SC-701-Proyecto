@@ -18,7 +18,11 @@ namespace SGC.AccesoDatos.Solicitud
             _contexto = contexto;
         }
 
-        public async Task<bool> CambiarEstadoAsync(Guid solicitudId, Guid nuevoEstadoId, string comentario, string userId)
+        public async Task<bool> CambiarEstadoAsync(
+            Guid solicitudId,
+            Guid nuevoEstadoId,
+            string comentario,
+            string userId)
         {
             var solicitud = await _contexto.SolicitudesCredito
                 .FirstOrDefaultAsync(s => s.SOLICITUDES_CREDITO_PK == solicitudId);
@@ -26,7 +30,12 @@ namespace SGC.AccesoDatos.Solicitud
             if (solicitud == null) return false;
 
             solicitud.ESTADOS_FK_SOLICITUDES_CREDITO = nuevoEstadoId;
-            solicitud.Comentario = comentario;
+
+            if (!string.IsNullOrWhiteSpace(comentario))
+            {
+                solicitud.Comentario = comentario;
+            }
+
             solicitud.ModificadoPor = userId;
             solicitud.Fecha_Modificacion = DateTime.Now;
 
