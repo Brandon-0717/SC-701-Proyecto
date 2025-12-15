@@ -28,19 +28,16 @@
                 <tr>
                     <td>@item.SOLICITUDES_CREDITO_PK</td>
 
-                    <td>
-                        @item.CLIENTES_FK_SOLICITUES_CREDITO
-                    </td>
+
+                    <td>@item.CLIENTES_FK_SOLICITUES_CREDITO</td>
+                    
 
                     <td>
                         ₡ @item.Monto_Credito.ToString("N2")
                     </td>
 
-                    <td>
-                        <span class="badge bg-info text-dark">
-                            @item.ESTADOS_FK_SOLICITUDES_CREDITO
-                        </span>
-                    </td>
+                    <td class="estado" data-id="@item.ESTADOS_FK_SOLICITUDES_CREDITO"></td>
+
 
                     <td>
                         @item.Fecha_Modificacion?.ToString("dd/MM/yyyy")
@@ -50,21 +47,26 @@
                         <button type="button"
                                 class="btn btn-sm btn-success btn-enviar"
                                 data-id="@item.SOLICITUDES_CREDITO_PK">
+
                             Enviar
                         </button>
 
                         <button type="button"
-                                class="btn btn-sm btn-warning btn-devolver">
-                            data-id="@item.SOLICITUDES_CREDITO_PK">
+                                class="btn btn-sm btn-warning btn-devolver"
+                                data-id="@item.SOLICITUDES_CREDITO_PK">
+
                             Devolver
                         </button>
 
                         <button type="button"
                                 class="btn btn-sm btn-danger btn-aprobar"
                                 data-id="@item.SOLICITUDES_CREDITO_PK">
+
                             Aprobar
                         </button>
                     </td>
+
+
                 </tr>
             }
         }
@@ -81,4 +83,20 @@
 
 @section Scripts {
     <script src="~/js/seguimiento-solicitudes.js"></script>
+    <script>
+        fetch('/Estado/ListarEstados')
+          .then(r => r.json())
+          .then(resp => {
+            const estados = {};
+            resp.data.forEach(e => estados[e.estadoS_PK] = e.nombre_Estado);
+
+            document.querySelectorAll('.estado').forEach(td => {
+                const id = td.dataset.id;
+                td.innerText = estados[id] || 'N/A';
+            });
+        });
+    </script>
+
+
+
 }
