@@ -93,9 +93,20 @@ builder.Services.AddTransient<IObtenerClienteAsyncLN, ObtenerClienteAsyncLN>();
 builder.Services.AddTransient<IObtenerClientePorIdAsyncAD, ObtenerClientePorIdAsyncAD>();
 builder.Services.AddTransient<IObtenerClientePorIdAsyncLN, ObtenerClientePorIdAsyncLN>();
 
-// ***** NUEVO MÓDULO: SOLICITUDES DE CRÉDITO *****
-builder.Services.AddTransient<ISolicitudCreditoDA, SolicitudCreditoAD>();
+// ***** MÓDULO: SOLICITUDES DE CRÉDITO *****
+
+// Lógica de Negocio
 builder.Services.AddTransient<ISolicitudCreditoLN, SolicitudCreditoLN>();
+builder.Services.AddTransient<IListarSolicitudesPorRolLN, ListarSolicitudesPorRolLN>();
+builder.Services.AddTransient<ICambiarEstadoSolicitudLN, CambiarEstadoSolicitudLN>();
+
+// Acceso a Datos
+builder.Services.AddTransient<ISolicitudCreditoDA, SolicitudCreditoAD>();
+builder.Services.AddTransient<IListarSolicitudesPorEstadosDA, ListarSolicitudesPorEstadosAD>();
+builder.Services.AddTransient<ICambiarEstadoSolicitudDA, CambiarEstadoSolicitudDA>();
+builder.Services.AddTransient<IObtenerEstadoPorNombreDA, ObtenerEstadoPorNombreDA>();
+
+
 
 
 
