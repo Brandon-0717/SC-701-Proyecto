@@ -21,7 +21,8 @@ namespace SGC.LogicaDeNegocio.Solicitud
         public async Task<List<SolicitudCreditoDA>> ListarAsync(string rol)
         {
             // TODOS o ADMIN = todas las solicitudes
-            if (rol == "Todos" || rol == "Admin")
+            if (rol == "Todos" || rol == "Administrador")
+
             {
                 var nombres = new List<string>
         {
