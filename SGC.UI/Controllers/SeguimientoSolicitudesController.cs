@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SGC.Abstracciones.LogicaDeNegocio.Solicitud;
 using SGC.Abstracciones.Modelos.ModeloDA;
+using System.Security.Claims;
 
 namespace SGC.UI.Controllers
 {
@@ -20,22 +21,25 @@ namespace SGC.UI.Controllers
         }
 
         // =========================
-        // LISTAR
+        // LISTAR SEGÚN ROL
         // =========================
         public async Task<IActionResult> Index()
         {
-            var solicitudes = await _listarSolicitudesLN.ListarAsync("Todos");
+            var rol = User.FindFirstValue(ClaimTypes.Role) ?? "Cliente";
+            var solicitudes = await _listarSolicitudesLN.ListarAsync(rol);
             return View(solicitudes ?? new List<SolicitudCreditoDA>());
         }
 
         // =========================
         // ENVIAR A APROBACIÓN
+        // SOLO: Analista / Administrador
         // =========================
         [HttpPost]
+        [Authorize(Roles = "Analista,Administrador")]
         public async Task<IActionResult> EnviarAprobacion([FromBody] CambiarEstadoDto dto)
         {
             if (dto == null || dto.SolicitudId == Guid.Empty)
-                return BadRequest("Id inválido");
+                return BadRequest();
 
             var ok = await _cambiarEstadoLN.CambiarEstadoAsync(
                 dto.SolicitudId,
@@ -44,17 +48,19 @@ namespace SGC.UI.Controllers
                 User.Identity?.Name ?? "Sistema"
             );
 
-            return ok ? Ok() : BadRequest("No se pudo enviar");
+            return ok ? Ok() : BadRequest();
         }
 
         // =========================
         // APROBAR
+        // SOLO: Gestor / Administrador
         // =========================
         [HttpPost]
+        [Authorize(Roles = "Gestor,Administrador")]
         public async Task<IActionResult> Aprobar([FromBody] CambiarEstadoDto dto)
         {
             if (dto == null || dto.SolicitudId == Guid.Empty)
-                return BadRequest("Id inválido");
+                return BadRequest();
 
             var ok = await _cambiarEstadoLN.CambiarEstadoAsync(
                 dto.SolicitudId,
@@ -63,17 +69,19 @@ namespace SGC.UI.Controllers
                 User.Identity?.Name ?? "Sistema"
             );
 
-            return ok ? Ok() : BadRequest("No se pudo aprobar");
+            return ok ? Ok() : BadRequest();
         }
 
         // =========================
         // DEVOLVER
+        // SOLO: Gestor / Administrador
         // =========================
         [HttpPost]
+        [Authorize(Roles = "Gestor,Administrador")]
         public async Task<IActionResult> Devolver([FromBody] DevolverSolicitudDto dto)
         {
             if (dto == null || dto.SolicitudId == Guid.Empty)
-                return BadRequest("Datos inválidos");
+                return BadRequest();
 
             var ok = await _cambiarEstadoLN.CambiarEstadoAsync(
                 dto.SolicitudId,
@@ -82,12 +90,12 @@ namespace SGC.UI.Controllers
                 User.Identity?.Name ?? "Sistema"
             );
 
-            return ok ? Ok() : BadRequest("No se pudo devolver");
+            return ok ? Ok() : BadRequest();
         }
     }
 
     // =========================
-    // DTOs (solo para este controller)
+    // DTOs
     // =========================
     public class CambiarEstadoDto
     {
