@@ -16,5 +16,6 @@ namespace SGC.Abstracciones.AccesoDatos.Solicitud
             string comentario,
             string userId
         );
+
     }
 }
